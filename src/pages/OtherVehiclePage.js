@@ -32,11 +32,11 @@ const OtherVehicle = (props)=>{
     return (
         <>
             <Header/>
-            <div id="" className="vehicle-container">
+            <div id="" className="othervehicle-container">
                 <p id="welcome-name" className="vehicle-name">Damaged to other Vehicle or Object</p>
                 <p className="vehicle-instruction">Please upload your damaged vehicle or object photos here</p>
             </div>
-            <div className="upload-section">
+            <div className="otherupload-section">
             <UploadAndDisplayImage
                 imageHandler={getMediaUploadURL}
             />

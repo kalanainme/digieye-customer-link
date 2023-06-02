@@ -34,12 +34,12 @@ const MyVehiclePage = (props)=>{
     return (
         <>
             <Header/>
-            <div id="vehicle-container" className="vehicle-container">
+            <div id="myvehicle-container" className="myvehicle-container">
                 <p id="vehicle-name " className="vehicle-name ">Damaged to your Vehicle</p>
                 <p className="vehicle-instruction">Please upload your damaged vehicle photos here</p>
             </div>
 
-            <div className="upload-section">
+            <div className="myupload-section">
                 <UploadAndDisplayImage
                     imageHandler={getMediaUploadURL}
                 />

@@ -16,15 +16,37 @@ code {
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
-  /*background-color: #FFDEE9;*/
-  /*background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);*/
-  /*background-color: #fde03d;*/
-  /*background-image: linear-gradient(0deg, #fde03d 0%, #B5FFFC 100%);*/
   background-image: url("background2.jpg");
-
-  /*background-image: url('background.jpg');*/
   background-size: 600px 800px;
-  /*background-repeat: no-repeat;*/
+}
+@media screen and (max-width: 530px) {
 
+  .app-dimension{
+    width: 100%;
+  }
+}
+@media screen and (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */
+
+  .app-dimension {
+    width: 100%;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-image: url("background2.jpg");
+    background-size: 600px 800px;
+  }
+}
+@media (min-width:481px)  {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  .app-dimension {
+    width: 100%;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-image: url("background2.jpg");
+    background-size: 600px 800px;
+  }
 
 }
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }

@@ -33,11 +33,11 @@ const AccidentVideo = (props)=>{
     return (
         <>
             <Header/>
-            <div id="vehicle-container" className="vehicle-container">
+            <div id="vehicle-container" className="accidentvehicle-container">
                 <p id="vehicle-name" className="vehicle-name">Accident Videos</p>
                 <p className="vehicle-instruction">Please upload accident videos here</p>
             </div>
-            <div className="upload-section">
+            <div className="accidentupload-section">
             <UploadAndDisplayImage
                 imageHandler={getMediaUploadURL}
             />

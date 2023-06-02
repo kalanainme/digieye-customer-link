@@ -6,7 +6,7 @@ const ThankyouPage = () => {
         <>
             <Header/>
             <div id="thankyou-container" className="thankyou-container">
-                <img width={300} src="/thank-you.png"/>
+                <img className="thank-img" src="/thank-you.png"/>
             </div>
 
             <div id="thankyou-container" className="thankyou-container">
@@ -24,7 +24,7 @@ const ThankyouPage = () => {
                 <div id="thumbs-container" className="thumbs-container">
                     <img className="thumbsdown-icon" width={40} src="/thumbsdown.png"/>
                 </div>
-        </div>
+            </div>
         </>
     )
 };

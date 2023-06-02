@@ -33,11 +33,11 @@ const DrivingLicense = (props)=>{
     return (
         <>
             <Header/>
-            <div id="vehicle-container" className="vehicle-container">
+            <div id="vehicle-container" className="drivinglicense-container">
                 <p id="vehicle-name" className="vehicle-name">Driving License Photos</p>
                 <p className="vehicle-instruction">Please upload your driving license photos here.</p>
             </div>
-            <div className="upload-section">
+            <div className="drivingupload-section">
             <UploadAndDisplayImage
                 imageHandler={getMediaUploadURL}
             />

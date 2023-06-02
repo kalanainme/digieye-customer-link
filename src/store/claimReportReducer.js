@@ -72,6 +72,7 @@ export const getCustomerLink = (body) => async dispatch => {
         const { data } = await axios.post(`https://bzlsgpaxsj.execute-api.ap-southeast-1.amazonaws.com/dev/link`, body, {
             headers: {
                 'x-api-key': 'c0c6e850-cf4b9132-311c-4560-92d1-a163310bb7da-c0c6e850-ae53-43b5-c0c6e850-ae53-43b5',
+                'Access-Control-Allow-Origin': "*"
             }
         });
         const { message:msg, status } = data;
@@ -99,7 +100,12 @@ export const getMediaUploadUrl = (mediaData) => async dispatch => {
         const headers = {
             Authorization: localStorage.getItem('hash_token'),
         };
-        const { data } = await axios.post(`https://bzlsgpaxsj.execute-api.ap-southeast-1.amazonaws.com/dev/upload/link`, mediaData, {headers});
+        const { data } = await axios.post(`https://bzlsgpaxsj.execute-api.ap-southeast-1.amazonaws.com/dev/upload/link`, mediaData, {
+            headers: {
+                'authorization' : `${localStorage.getItem('hash_token')}`,
+                'Access-Control-Allow-Origin': "*"
+            }
+        });
         const { message:msg, status } = data;
         if (status === 'error'){
             // message.error(msg);
@@ -121,7 +127,11 @@ export const UploadImagesToS3 = (s3Url,file) => async dispatch => {
         let formData = new FormData();
         formData.append("file", file);
 
-        const { data } = await axios.put(s3Url,formData);
+        const { data } = await axios.put(s3Url,formData,{
+            headers: {
+                'Access-Control-Allow-Origin': "*"
+            }
+        });
         const { message:msg, status } = data;
         if (status === 'error'){
             // message.error(msg);
@@ -143,7 +153,12 @@ export const updateLocation = (locationData) => async dispatch => {
         const headers = {
             Authorization: localStorage.getItem('hash_token'),
         };
-        const { data } = await axios.put(`https://bzlsgpaxsj.execute-api.ap-southeast-1.amazonaws.com/dev/location`, locationData, {headers});
+        const { data } = await axios.put(`https://bzlsgpaxsj.execute-api.ap-southeast-1.amazonaws.com/dev/location`, locationData, {
+            headers: {
+                'authorization' : `${localStorage.getItem('hash_token')}`,
+                'Access-Control-Allow-Origin': "*"
+            }
+        });
         const { message:msg, status } = data;
         if (status === 'error'){
             // message.error(msg);

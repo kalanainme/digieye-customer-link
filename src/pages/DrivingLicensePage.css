@@ -24,7 +24,7 @@
     box-shadow: 4px 4px 0px lightblue;
 
 }
-.upload-section{
+.drivingupload-section{
     margin: 50px 0px 0px 83px;
 }
 .language-btn{
@@ -43,7 +43,7 @@
 
 }
 /* Welcome */
-.vehicle-container {
+.drivinglicense-container {
     padding: 25px 10px;
 }
 
@@ -107,4 +107,68 @@
     } to {
           transform: rotate(360deg);
       }
+}
+@media (min-width:481px)  {
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    .drivinglicense-container {
+        padding: 26px 89px;
+    }
+    .drivebutton{
+        margin: 163px 0px 30px 91px;
+    }
+    .drivingupload-section {
+        margin: 50px 0px 0px 153px;
+    }
+
+}
+@media (min-width:641px) {
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+    .drivinglicense-container {
+        padding: 26px 166px;
+    }
+
+    .drivebutton {
+        margin: 9px 0px 27px 125px;
+    }
+    .drivingupload-section {
+        margin: 0px 2px 60px 222px;
+    }
+}
+@media (min-width:961px) {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .drivinglicense-container {
+        padding: 100px 325px;
+    }
+
+    .drivebutton {
+        margin: 9px 0px 27px 190px;
+    }
+    .drivingupload-section {
+        margin: -50px 0px 50px 383px;
+    }
+}
+@media (min-width:1025px) {
+    /* big landscape tablets, laptops, and desktops */
+    .drivinglicense-container {
+        padding: 100px 357px;
+    }
+
+    .drivebutton {
+        margin: 9px 0px 27px 200px;
+    }
+    .drivingupload-section {
+        margin: 0px 0px 50px 421px;
+    }
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */
+    .drivinglicense-container {
+        padding: 150px 460px;
+    }
+    .drivebutton{
+        margin: 9px 0px 27px 243px;
+    }
+    .drivingupload-section {
+        margin: -50px 1px 50px 525px;
+    }
+
 }

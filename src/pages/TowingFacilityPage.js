@@ -24,7 +24,7 @@ const TowingFacility = () =>{
             <Header/>
             <div id="towing-container" className="towing-container">
                 <p id="towing-name" className="towing-name">Do you need Towing Facility?</p>
-                <img width={300} src="/towing.png"/>
+                <img className="towing-img" src="/towing.png"/>
 
             </div>
             <div id="selection-container" className="selection-container">

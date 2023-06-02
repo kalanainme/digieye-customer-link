@@ -287,3 +287,57 @@
           transform: rotate(360deg);
       }
 }
+@media (min-width:481px)  {
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+    .location-welcome-container {
+        padding: 26px 75px;
+    }
+    .nxt-btn{
+        margin: 9px 0px 27px 90px;
+
+    }
+
+}
+@media (min-width:641px) {
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+    .location-welcome-container {
+        padding: 26px 155px;
+    }
+
+    .nxt-btn {
+        margin: 9px 0px 27px 125px;
+
+    }
+}
+@media (min-width:961px) {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .location-welcome-container {
+        padding: 100px 315px;
+    }
+
+    .nxt-btn {
+        margin: 9px 0px 27px 190px;
+
+    }
+}
+@media (min-width:1025px) {
+    /* big landscape tablets, laptops, and desktops */
+    .location-welcome-container {
+        padding: 100px 335px;
+    }
+
+    .nxt-btn {
+        margin: 9px 0px 27px 200px;
+
+    }
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */
+    .location-welcome-container {
+        padding: 150px 470px;
+    }
+    .nxt-btn{
+        margin: 9px 0px 27px 243px;
+
+    }
+
+}
