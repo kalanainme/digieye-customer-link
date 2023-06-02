@@ -1,0 +1,87 @@
+
+/* Apps */
+.apps {
+    display: inline;
+    /*grid-template-columns: repeat(2, minmax(0, 1fr));*/
+    /*gap: .5rem;*/
+    padding: 0 10px;
+}
+
+.app {
+    background: #d9f1fb;
+    margin-bottom: 3vh;
+    display: flex;
+    border-radius: 20px;
+    border: 1px solid #b2e9fb;
+    height: 18px;
+    padding: 19px 1px 3%;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0px lightblue;
+
+}
+
+.language-btn{
+    cursor: pointer;
+}
+.app-title {
+    color: #1f4287;
+    font-size: 18px;
+    margin-bottom: 27px;
+
+}
+.app:hover{
+    background-color: #aeddff;
+    border-radius: 20px;
+    border: 1px solid #aeddff;
+
+}
+/* Welcome */
+.welcome-container {
+    padding: 25px 10px;
+}
+
+.welcome {
+    font-family: "Lato", serif;
+    color: #656565;
+    font-size: 30px;
+    margin: 32px 10px 0px 86px;
+    font-weight: bolder;
+
+}
+
+.welcome-sub {
+    font-family: "Lato", serif;
+    color: #656565;
+    font-size: 18px;
+    margin: 23px 3px 22px 38px;
+    font-weight: bolder;
+}
+
+.welcome-instruc {
+    font-family: "Lato", serif;
+    color: #858383;
+    font-size: 16px;
+    margin: 0px 43px 40px;
+}
+.active-tab-link {
+    border-color: rgba(59, 130, 246, 1);
+}
+.lang-btn{
+    width: 61%;
+    background: #d9f1fb;
+    display: flex;
+    border-radius: 20px;
+    border: 1px solid #b2e9fb;
+    height: 18px;
+    padding: 19px 1px 3%;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0px lightblue;
+    margin: 9px 0px 27px 53px;
+}

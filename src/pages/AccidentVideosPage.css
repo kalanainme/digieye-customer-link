@@ -1,0 +1,110 @@
+
+/* Apps */
+.accidentbuttons {
+    display: inline;
+    /*grid-template-columns: repeat(2, minmax(0, 1fr));*/
+    /*gap: .5rem;*/
+    padding: 0 10px;
+}
+
+.accidentbutton {
+    width: 61%;
+    margin: 68px 9px 0px 65px;
+    background: #d9f1fb;
+    margin-top: 157px;
+    display: flex;
+    border-radius: 20px;
+    border: 1px solid #b2e9fb;
+    height: 18px;
+    padding: 19px 1px 3%;
+cursor: pointer;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0px lightblue;
+
+}
+.upload-section{
+    margin: 50px 0px 0px 83px;
+}
+.language-btn{
+    cursor: pointer;
+}
+.accidentbutton-title {
+    color: #1f4287;
+    font-size: 18px;
+    margin-bottom: 27px;
+
+}
+.app:hover{
+    background-color: #aeddff;
+    border-radius: 20px;
+    border: 1px solid #aeddff;
+
+}
+/* Welcome */
+.vehicle-container {
+    padding: 25px 10px;
+}
+
+.vehicle-name {
+    font-family: "Lato", serif;
+    color: #656565;
+    font-size: 30px;
+    margin: 0;
+    font-weight: bolder;
+}
+
+.vehicle-subtitle {
+    font-family: "Lato", serif;
+    color: #656565;
+    font-size: 18px;
+    margin: 14px 0px 13px 0px;
+    font-weight: bolder;
+}
+
+.vehicle-instruction {
+    font-family: "Lato", serif;
+    color: #858383;
+    font-size: 16px;
+    margin: 10px 0 0;
+}
+.active-tab-link {
+    border-color: rgba(59, 130, 246, 1);
+}
+
+.accidentspinner {
+    height: 25px;
+    width: 25px;
+    margin: 0 auto 0 auto;
+    position: relative;
+    -webkit-animation: rotation .6s infinite linear;
+    -moz-animation: rotation .6s infinite linear;
+    -o-animation: rotation .6s infinite linear;
+    animation: rotation .6s infinite linear;
+    border-left: 4px solid #fff;
+    border-right: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+    border-top: 4px solid #58a3df;
+    border-radius: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.accidentspinner,
+.accidentspinner:after {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    display: block;
+    position: absolute;
+    top: 450px;
+    margin-top: -4.05em;
+}
+/* TODO Add vendor prefixes if you need them */
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    } to {
+          transform: rotate(360deg);
+      }
+}

@@ -1,0 +1,8 @@
+.header {
+    background: #1f4287;
+    mix-blend-mode: normal;
+    position: relative;
+    height: 50px;
+    padding: 8px 20px;
+    /*display: flex;*/
+}

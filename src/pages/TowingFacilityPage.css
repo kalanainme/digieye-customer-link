@@ -1,0 +1,224 @@
+
+/* Apps */
+.apps {
+    display: inline;
+    /*grid-template-columns: repeat(2, minmax(0, 1fr));*/
+    /*gap: .5rem;*/
+    padding: 0 10px;
+}
+
+.app {
+    background: #d9f1fb;
+    margin-bottom: 3vh;
+    display: flex;
+    border-radius: 20px;
+    border: 1px solid #b2e9fb;
+    height: 18px;
+    padding: 19px 1px 3%;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0px lightblue;
+
+}
+.thumbsup-container{
+    background: #d9f1fb;
+    padding: 12px 15px 29px 29%;
+    margin-left: 15px;
+    margin-top: 0px;
+    display: inline-block;
+    border-radius: 20px;
+    border: 1px solid #b2e9fb;
+height: 18px;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0px lightblue;
+}
+
+.language-btn{
+    cursor: pointer;
+}
+.app-title {
+    color: #1f4287;
+    font-size: 18px;
+    margin-bottom: 27px;
+
+}
+.button-title{
+    margin: 11px 6px 18px -55px;
+}
+.app:hover{
+    background-color: #aeddff;
+    border-radius: 20px;
+    border: 1px solid #aeddff;
+
+}
+/* Welcome */
+.towing-container {
+    padding: 1px 10px;
+}
+.selection-container {
+    padding: 0px 10px 13px 50px;
+}
+.towing-name {
+    font-family: "Lato", serif;
+    color: #656565;
+    font-size: 30px;
+    margin-left: 23px;
+    font-weight: bolder;
+    margin: 70px 13px -56px 33px;
+}
+
+.welcome-subtitle {
+    font-family: "Lato", serif;
+    color: #656565;
+    font-size: 18px;
+    margin: 14px 0px 13px 0px;
+    font-weight: bolder;
+}
+
+.welcome-instruction {
+    font-family: "Lato", serif;
+    color: #858383;
+    font-size: 16px;
+    margin: 11px 30px 0;
+}
+.active-tab-link {
+    border-color: rgba(59, 130, 246, 1);
+}
+
+.upload-button-icon {
+    cursor: pointer;
+    background: #0171cf;
+    text-decoration: none;
+    border-radius: 20px;
+    text-align: center;
+    padding: 10px;
+    color: white;
+}
+
+.upload-button-icon:hover {
+    background: #00549c;
+}
+
+.upload-progress {
+    border-radius: 7px;
+    width: 100%;
+}
+.upload-progress::-webkit-progress-bar {
+    background-color: lightgrey;
+    border-radius: 7px;
+}
+.upload-progress::-webkit-progress-value {
+    background-color: #01cf71;
+    border-radius: 7px;
+}
+.upload-progress::-moz-progress-bar {
+    background-color: yellow;
+    border-radius: 7px;
+}
+
+.capture-button {
+    cursor: pointer;
+    background: #0171cf;
+    border-radius: 20px;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.rotate-camera-button {
+    flex: 0.1;
+    height: auto;
+    padding: 4%;
+    margin-left: 0.5rem;
+    background: #0171cf;
+    border-radius: 9999px;
+    font-size: large;
+    color: white;
+}
+
+.capture-button:active, .rotate-camera-button:active {
+    background: #00549c;
+}
+
+.capture-button-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    color: white;
+}
+
+.capture-button-text {
+    margin-left: 0.5rem;
+    color: white;
+    font-weight: bold;
+}
+
+.app-modal-item-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 40vh;
+}
+
+.app-modal-item {
+    width: auto;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-radius: .25rem;
+    border-color: rgba(147, 197, 253, 1);
+}
+
+.app-modal-item-thumb {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.app-modal-document-view {
+    width: auto;
+    height: auto;
+    overflow-y: auto;
+    max-width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+}
+
+.app-modal-background {
+    position: fixed;
+    opacity: .25;
+    align-self: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 30;
+    background-color: black;
+}
+.rate-us{
+    margin-left: 27%;
+}
+.thumbsup-icon {
+    position: absolute;
+    margin-left: -74px;
+    margin-top: -4px;
+
+}
+.thumbsdown-icon{
+    position: absolute;
+    margin-left: -74px;
+    margin-top: -4px;
+}
