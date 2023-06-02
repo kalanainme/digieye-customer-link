@@ -13,6 +13,7 @@ const AccidentVideo = (props)=>{
     const navigateNextScreen = async () => {
         document.getElementById('accidentbuttons').setAttribute("disabled","disabled");
         for(let i = 0; i < file.length; i++){
+            //need to modify later
             const mediaData = {fileName: file ? file[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
             let link =  await props.getMediaUploadUrl(mediaData);
             let result = await uploadImageToS3(link,file);

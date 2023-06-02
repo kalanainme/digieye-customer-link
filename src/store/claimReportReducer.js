@@ -69,10 +69,10 @@ const reducer = (state = initialState, action) => {
 export const getCustomerLink = (body) => async dispatch => {
     dispatch({ type: claimReportActions.GET_CUSTOMER_LINK_ATTEMPT });
     try {
-        const { data } = await axios.post(`https://bzlsgpaxsj.execute-api.ap-southeast-1.amazonaws.com/dev/link`, body, {
+        const { data } = await axios.post(`https://jj3e8so6sf.execute-api.ap-southeast-1.amazonaws.com/dev/link`, body, {
             headers: {
                 'x-api-key': 'c0c6e850-cf4b9132-311c-4560-92d1-a163310bb7da-c0c6e850-ae53-43b5-c0c6e850-ae53-43b5',
-                'Access-Control-Allow-Origin': "*"
+                'Access-Control-Allow-Origin': "*",
             }
         });
         const { message:msg, status } = data;
@@ -97,10 +97,7 @@ export const getCustomerLink = (body) => async dispatch => {
 export const getMediaUploadUrl = (mediaData) => async dispatch => {
     dispatch({ type: claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT });
     try {
-        const headers = {
-            Authorization: localStorage.getItem('hash_token'),
-        };
-        const { data } = await axios.post(`https://bzlsgpaxsj.execute-api.ap-southeast-1.amazonaws.com/dev/upload/link`, mediaData, {
+        const { data } = await axios.post(`https://jj3e8so6sf.execute-api.ap-southeast-1.amazonaws.com/dev/upload/link`, mediaData, {
             headers: {
                 'authorization' : `${localStorage.getItem('hash_token')}`,
                 'Access-Control-Allow-Origin': "*"
@@ -150,10 +147,7 @@ export const UploadImagesToS3 = (s3Url,file) => async dispatch => {
 export const updateLocation = (locationData) => async dispatch => {
     dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT });
     try {
-        const headers = {
-            Authorization: localStorage.getItem('hash_token'),
-        };
-        const { data } = await axios.put(`https://bzlsgpaxsj.execute-api.ap-southeast-1.amazonaws.com/dev/location`, locationData, {
+        const { data } = await axios.put(`https://jj3e8so6sf.execute-api.ap-southeast-1.amazonaws.com/dev/location`, locationData, {
             headers: {
                 'authorization' : `${localStorage.getItem('hash_token')}`,
                 'Access-Control-Allow-Origin': "*"

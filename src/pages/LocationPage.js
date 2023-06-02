@@ -17,6 +17,7 @@ const LocationPage = (props) =>{
     };
 
     const uploadLocation = async (id) =>{
+        // need to modify later
         const locationData = {
             lat: "6.927079",
             long: "79.861244"

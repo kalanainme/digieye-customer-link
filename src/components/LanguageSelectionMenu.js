@@ -15,6 +15,7 @@ const LanguageSelectionMenu = (props) => {
         generateLink();
     }, [])
 
+    // -- future modifications needed--
     const generateLink = async () => {
         const body = {
             "app": "digieye",
@@ -34,17 +35,12 @@ const LanguageSelectionMenu = (props) => {
             <div className="apps">
                 <div className="lang-btn" onClick={()=>openLocationScreen()}>
                     <p className="app-title">SINHALA</p>
-                    {/*<button className="language-btn">SINHALA</button>*/}
                 </div>
                 <div className="lang-btn" onClick={()=>openLocationScreen()}>
                     <p className="app-title">TAMIL</p>
-
-                    {/*<button className="language-btn">TAMIL</button>*/}
                 </div>
                 <div className="lang-btn" onClick={()=>openLocationScreen()}>
                     <p className="app-title">ENGLISH</p>
-
-                    {/*<button className="language-btn">ENGLISH</button>*/}
                 </div>
             </div>
         </>
