@@ -9,6 +9,7 @@ const AccidentVideo = (props)=>{
 
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const navigateNextScreen = async () => {
         // document.getElementById('accidentbuttons').setAttribute("disabled","disabled");
@@ -34,7 +35,8 @@ const AccidentVideo = (props)=>{
     const uploadMultiple = (e) => {
         const newArr = [...fileObj,...e.target.files];
         fileObj= [...newArr];
-        console.log(fileObj)
+        setModalOpen(true);
+        setFile([...fileObj]);
     }
 
     return (
@@ -43,6 +45,19 @@ const AccidentVideo = (props)=>{
             <div id="vehicle-container" className="accidentvehicle-container">
                 <p id="vehicle-name" className="vehicle-name">Accident Videos</p>
                 <p className="vehicle-instruction">Please upload accident videos here</p>
+            </div>
+            <div className="app-modal-item-container">
+                { modalOpen && file.map((image,i)=>(
+                    <video
+                        style={{margin: '10px'}}
+                        key={i}
+                        alt="not found"
+                        width={"100px"}
+                        src={URL.createObjectURL(image)}
+                    />
+                ))
+                }
+
             </div>
             <input multiple type="file" name="photo" id="photo" accept="video/mp4,video/x-m4v,video/*" capture="environment" className="img-uploadbtn" onChange={(e)=>
                 uploadMultiple(e) }/>

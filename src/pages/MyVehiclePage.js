@@ -11,8 +11,6 @@ const MyVehiclePage = (props)=>{
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-    const [imageURLS, setImageURLs] = useState([]);
-
 
     const navigateNextScreen = async () => {
         for(let i = 0; i < fileObj.length; i++){
@@ -34,7 +32,9 @@ const MyVehiclePage = (props)=>{
     const uploadMultiple = (e) => {
         const newArr = [...fileObj,...e.target.files];
         fileObj= [...newArr];
-        console.log(fileObj)
+        setModalOpen(true);
+        setFile([...fileObj]);
+        console.log(file)
     }
 
     //upload images to s3 bucket
@@ -77,6 +77,21 @@ const MyVehiclePage = (props)=>{
                 <p id="vehicle-name " className="vehicle-name ">Damaged to your Vehicle</p>
                 <p className="vehicle-instruction">Please upload your damaged vehicle photos here</p>
             </div>
+
+            <div className="app-modal-item-container">
+                { modalOpen && file.map((image,i)=>(
+                    <img
+                        style={{margin: '10px'}}
+                        key={i}
+                        alt="not found"
+                        width={"100px"}
+                        src={URL.createObjectURL(image)}
+                    />
+                ))
+                }
+
+            </div>
+
 
             <input multiple type="file" name="photo" id="photo" accept="image/*" capture="environment" className="img-uploadbtn" onChange={(e)=>
                 uploadMultiple(e) }/>

@@ -278,3 +278,12 @@ margin: 50px 0px 0px 83px;
     }
 
 }
+.app-modal-item-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 40vh;
+}

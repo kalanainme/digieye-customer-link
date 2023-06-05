@@ -9,6 +9,7 @@ const DrivingLicense = (props)=>{
 
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const navigateNextScreen = async () => {
         // document.getElementById('drivebuttons').setAttribute("disabled","disabled");
@@ -33,7 +34,8 @@ const DrivingLicense = (props)=>{
     const uploadMultiple = (e) => {
         const newArr = [...fileObj,...e.target.files];
         fileObj= [...newArr];
-        console.log(fileObj)
+        setModalOpen(true);
+        setFile([...fileObj]);
     }
     return (
         <>
@@ -41,6 +43,19 @@ const DrivingLicense = (props)=>{
             <div id="vehicle-container" className="drivinglicense-container">
                 <p id="vehicle-name" className="vehicle-name">Driving License Photos</p>
                 <p className="vehicle-instruction">Please upload your driving license photos here.</p>
+            </div>
+            <div className="app-modal-item-container">
+                { modalOpen && file.map((image,i)=>(
+                    <img
+                        style={{margin: '10px'}}
+                        key={i}
+                        alt="not found"
+                        width={"100px"}
+                        src={URL.createObjectURL(image)}
+                    />
+                ))
+                }
+
             </div>
             <input multiple type="file" name="photo" id="photo" accept="image/*" capture="environment" className="img-uploadbtn" onChange={(e)=>
                 uploadMultiple(e) }/>
