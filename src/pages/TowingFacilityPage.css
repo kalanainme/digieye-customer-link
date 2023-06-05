@@ -291,3 +291,10 @@ height: 18px;
     }
 
 }
+@media (min-width:350px) { /* hi-res laptops and desktops */
+    .towing-container {
+        padding :0px 54px;
+    }
+
+
+}

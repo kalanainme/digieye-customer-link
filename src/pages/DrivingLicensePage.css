@@ -172,3 +172,15 @@
     }
 
 }
+@media (min-width:350px) { /* hi-res laptops and desktops */
+    .drivinglicense-container {
+        padding:50px 53px;
+    }
+    .drivebutton{
+        margin: 138px 0px 27px 74px;
+    }
+    .drivingupload-section {
+        margin: 5px 1px 50px 117px;
+    }
+
+}

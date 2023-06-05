@@ -280,3 +280,10 @@
         padding: 60px 437px;
     }
 }
+@media (min-width:350px) { /* hi-res laptops and desktops */
+    .thankyou-container {
+        padding : 0px 40px;
+    }
+
+
+}

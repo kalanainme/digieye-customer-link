@@ -171,3 +171,15 @@ margin: 50px 0px 0px 83px;
     }
 
 }
+@media (min-width:350px) { /* hi-res laptops and desktops */
+    .myvehicle-container {
+        padding: 56px 45px;
+    }
+    .mybutton{
+        margin: 78px -1px 27px 74px;
+    }
+    .myupload-section {
+        margin: -15px 2px 118px 109px;
+    }
+
+}

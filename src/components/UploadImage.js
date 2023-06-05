@@ -28,6 +28,7 @@ const UploadAndDisplayImage = ({imageHandler}) => {
                 type="file"
                 name="myImage"
                 multiple
+                capture
                 onChange={(event) => {
                     uploadMultiple(event)
                 }}

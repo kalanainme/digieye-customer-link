@@ -173,3 +173,15 @@
     }
 
 }
+@media (min-width:350px) { /* hi-res laptops and desktops */
+    .othervehicle-container {
+        padding: 48px 23px;
+    }
+    .otherbutton{
+        margin: 111px 0px 27px 74px;
+    }
+    .otherupload-section {
+        margin: -21px 2px 55px 118px;
+    }
+
+}

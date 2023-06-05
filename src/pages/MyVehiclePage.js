@@ -24,6 +24,8 @@ const MyVehiclePage = (props)=>{
     // get media upload URL
     const getMediaUploadURL = async (newFile) =>{
         setFile([...file,...newFile]);
+        console.log(file)
+
     }
 
     //upload images to s3 bucket

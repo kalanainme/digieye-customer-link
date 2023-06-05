@@ -341,3 +341,12 @@
     }
 
 }
+@media (min-width:390px) { /* hi-res laptops and desktops */
+    .location-welcome-container {
+        padding: 50px 41px;
+    }
+    .nxt-btn{
+        margin: 217px 0px 27px 74px;
+    }
+
+}
