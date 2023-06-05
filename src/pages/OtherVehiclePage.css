@@ -24,6 +24,10 @@
     box-shadow: 4px 4px 0px lightblue;
 
 }
+.select-container1 {
+    display: flex;
+    padding: 100px 10px 13px 0px;
+}
 .otherupload-section{
     margin: 50px 0px 0px 83px;
 }

@@ -4,17 +4,16 @@ import UploadAndDisplayImage from "../components/UploadImage";
 import {connect} from "react-redux";
 import {getMediaUploadUrl, UploadImagesToS3} from "../store/claimReportReducer";
 import "./AccidentVideosPage.css"
-import {useState} from "react";
+import React, {useState} from "react";
 const AccidentVideo = (props)=>{
 
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
 
     const navigateNextScreen = async () => {
-        document.getElementById('accidentbuttons').setAttribute("disabled","disabled");
-        for(let i = 0; i < file.length; i++){
-            //need to modify later
-            const mediaData = {fileName: file ? file[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
+        // document.getElementById('accidentbuttons').setAttribute("disabled","disabled");
+        for(let i = 0; i < fileObj.length; i++){
+            const mediaData = {fileName: fileObj ? fileObj[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
             let link =  await props.getMediaUploadUrl(mediaData);
             let result = await uploadImageToS3(link,file);
         }
@@ -22,13 +21,20 @@ const AccidentVideo = (props)=>{
     };
 
     // get media upload URL
-    const getMediaUploadURL = async (newFile) =>{
-        setFile([...file,...newFile]);
-    }
+    // const getMediaUploadURL = async (newFile) =>{
+    //     setFile([...file,...newFile]);
+    // }
 
     //upload images to s3 bucket
     const uploadImageToS3 = async (link,file) => {
         let result = await props.UploadImagesToS3(link,file);
+    }
+
+    var fileObj = [];
+    const uploadMultiple = (e) => {
+        const newArr = [...fileObj,...e.target.files];
+        fileObj= [...newArr];
+        console.log(fileObj)
     }
 
     return (
@@ -38,14 +44,16 @@ const AccidentVideo = (props)=>{
                 <p id="vehicle-name" className="vehicle-name">Accident Videos</p>
                 <p className="vehicle-instruction">Please upload accident videos here</p>
             </div>
-            <div className="accidentupload-section">
-            <UploadAndDisplayImage
-                imageHandler={getMediaUploadURL}
-            />
-            </div>
-            <div id="accidentbuttons" className="accidentbuttons">
-                <div className="accidentbutton" onClick={()=>navigateNextScreen()}>
-                    <p className="accidentbutton-title">NEXT</p>{props.isLoading && <span className="accidentspinner"></span>}
+            <input multiple type="file" name="photo" id="photo" accept="video/mp4,video/x-m4v,video/*" capture="environment" className="img-uploadbtn" onChange={(e)=>
+                uploadMultiple(e) }/>
+
+            <div id="select-container" className="select-container3">
+                <label htmlFor="photo" id="capture-photo" className="option-container1">
+                    <span className="take-photo-txt">Take Photo</span>
+                    <i id="image-capture-icon" className="capture-button-icon fa fa-camera"></i>
+                </label>
+                <div id="option-container" className="option-container" onClick={()=>navigateNextScreen()}>
+                    <p className="mybutton-title ">NEXT</p>{props.isLoading && <span className="myspinner"></span>}
                 </div>
             </div>
 

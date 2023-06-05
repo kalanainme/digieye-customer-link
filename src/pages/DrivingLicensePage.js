@@ -4,16 +4,16 @@ import UploadAndDisplayImage from "../components/UploadImage";
 import {connect} from "react-redux";
 import {getMediaUploadUrl, UploadImagesToS3} from "../store/claimReportReducer";
 import "./DrivingLicensePage.css"
-import {useState} from "react";
+import React, {useState} from "react";
 const DrivingLicense = (props)=>{
 
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
 
     const navigateNextScreen = async () => {
-        document.getElementById('drivebuttons').setAttribute("disabled","disabled");
-        for(let i = 0; i < file.length; i++){
-            const mediaData = {fileName: file ? file[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
+        // document.getElementById('drivebuttons').setAttribute("disabled","disabled");
+        for(let i = 0; i < fileObj.length; i++){
+            const mediaData = {fileName: fileObj ? fileObj[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
             let link =  await props.getMediaUploadUrl(mediaData);
             let result = await uploadImageToS3(link,file);
         }
@@ -29,7 +29,12 @@ const DrivingLicense = (props)=>{
     const uploadImageToS3 = async (link,file) => {
         let result = await props.UploadImagesToS3(link,file);
     }
-
+    var fileObj = [];
+    const uploadMultiple = (e) => {
+        const newArr = [...fileObj,...e.target.files];
+        fileObj= [...newArr];
+        console.log(fileObj)
+    }
     return (
         <>
             <Header/>
@@ -37,14 +42,16 @@ const DrivingLicense = (props)=>{
                 <p id="vehicle-name" className="vehicle-name">Driving License Photos</p>
                 <p className="vehicle-instruction">Please upload your driving license photos here.</p>
             </div>
-            <div className="drivingupload-section">
-            <UploadAndDisplayImage
-                imageHandler={getMediaUploadURL}
-            />
-            </div>
-            <div id="drivebuttons" className="drivebuttons">
-                <div className="drivebutton" onClick={()=>navigateNextScreen()}>
-                    <p className="drivebutton-title">NEXT</p>{props.isLoading && <span className="drivingspinner"></span>}
+            <input multiple type="file" name="photo" id="photo" accept="image/*" capture="environment" className="img-uploadbtn" onChange={(e)=>
+                uploadMultiple(e) }/>
+
+            <div id="select-container" className="select-container2">
+                <label htmlFor="photo" id="capture-photo" className="option-container1">
+                    <span className="take-photo-txt">Take Photo</span>
+                    <i id="image-capture-icon" className="capture-button-icon fa fa-camera"></i>
+                </label>
+                <div id="option-container" className="option-container" onClick={()=>navigateNextScreen()}>
+                    <p className="mybutton-title ">NEXT</p>{props.isLoading && <span className="myspinner"></span>}
                 </div>
             </div>
 

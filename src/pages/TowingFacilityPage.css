@@ -143,21 +143,21 @@ height: 18px;
     color: white;
 }
 
-.capture-button:active, .rotate-camera-button:active {
-    background: #00549c;
-}
+/*.capture-button:active, .rotate-camera-button:active {*/
+/*    background: #00549c;*/
+/*}*/
 
-.capture-button-icon {
-    font-size: 1.5rem;
-    margin-right: 0.5rem;
-    color: white;
-}
+/*.capture-button-icon {*/
+/*    font-size: 1.5rem;*/
+/*    margin-right: 0.5rem;*/
+/*    color: #004eb1;*/
+/*}*/
 
-.capture-button-text {
-    margin-left: 0.5rem;
-    color: white;
-    font-weight: bold;
-}
+/*.capture-button-text {*/
+/*    margin-left: 0.5rem;*/
+/*    color: white;*/
+/*    font-weight: bold;*/
+/*}*/
 
 .app-modal-item-container {
     display: grid;
