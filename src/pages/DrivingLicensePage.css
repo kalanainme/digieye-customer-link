@@ -186,5 +186,10 @@
     .drivingupload-section {
         margin: 5px 1px 50px 117px;
     }
+    .drivingspinner{
+        margin-left: -207px;
+        top: 302px;
+
+    }
 
 }

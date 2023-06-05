@@ -186,5 +186,9 @@ cursor: pointer;
     .accidentupload-section {
         margin: 5px 1px 50px 117px;
     }
+    .accidentspinner{
+        margin-left: -207px;
+        top: 302px;
 
+    }
 }

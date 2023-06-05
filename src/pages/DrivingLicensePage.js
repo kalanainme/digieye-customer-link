@@ -51,7 +51,7 @@ const DrivingLicense = (props)=>{
                     <i id="image-capture-icon" className="capture-button-icon fa fa-camera"></i>
                 </label>
                 <div id="option-container" className="option-container" onClick={()=>navigateNextScreen()}>
-                    <p className="mybutton-title ">NEXT</p>{props.isLoading && <span className="myspinner"></span>}
+                    <p className="mybutton-title ">NEXT</p>{props.isLoading && <span className="drivingspinner"></span>}
                 </div>
             </div>
 

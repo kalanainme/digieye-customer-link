@@ -272,5 +272,9 @@ margin: 50px 0px 0px 83px;
     .myupload-section {
         margin: -15px 2px 118px 109px;
     }
+    .myspinner{
+        margin-left: -207px;
+        top: 302px;
+    }
 
 }
