@@ -64,8 +64,8 @@ const AccidentVideo = (props)=>{
 
             <div id="select-container" className="select-container3">
                 <label htmlFor="photo" id="capture-photo" className="option-container1">
-                    <span className="take-photo-txt">Take Photo</span>
-                    <i id="image-capture-icon" className="capture-button-icon fa fa-camera"></i>
+                    <span className="take-photo-txt">Take Video</span>
+                    <i id="image-capture-icon" className="capture-button-icon fa fa-video-camera"></i>
                 </label>
                 <div id="option-container" className="option-container" onClick={()=>navigateNextScreen()}>
                     <p className="mybutton-title ">NEXT</p>{props.isLoading && <span className="myspinner"></span>}
