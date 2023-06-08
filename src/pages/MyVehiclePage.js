@@ -25,6 +25,8 @@ const MyVehiclePage = (props)=>{
 
     const uploadMultiple = (event) => {
         setFile([...file, ...event.target.files]);
+        setModalOpen(true);
+
     };
 
     //upload images to s3 bucket
