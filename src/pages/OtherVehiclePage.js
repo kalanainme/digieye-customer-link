@@ -4,34 +4,30 @@ import UploadAndDisplayImage from "../components/UploadImage";
 import {connect} from "react-redux";
 import {getMediaUploadUrl, UploadImagesToS3} from "../store/claimReportReducer";
 import "./OtherVehiclePage.css"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 const OtherVehicle = (props)=>{
 
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
 
+    useEffect(() => {
+        console.log('UpdatedFiles=>', file);
+    }, [file]);
+
     const navigateNextScreen = async () => {
-        // document.getElementById('otherbuttons').setAttribute("disabled","disabled");
-        for(let i = 0; i < fileObj.length; i++){
-            const mediaData = {fileName: fileObj ? fileObj[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
+        for(let i = 0; i < file.length; i++){
+            const mediaData = {file: file ? file[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
             let link =  await props.getMediaUploadUrl(mediaData);
             let result = await uploadImageToS3(link,file);
         }
         navigate('/driving-license')
     };
 
-    // get media upload URL
-    // const getMediaUploadURL = async (newFile) =>{
-    //     setFile([...file,...newFile]);
-    // }
-    var fileObj = [];
-    const uploadMultiple = (e) => {
-        const newArr = [...fileObj,...e.target.files];
-        fileObj= [...newArr];
-        setModalOpen(true);
-        setFile([...fileObj]);
-    }
+    const uploadMultiple = (event) => {
+        console.log('NewFile=>', event.target.files);
+        setFile([...file, ...event.target.files]);
+    };
     //upload images to s3 bucket
     const uploadImageToS3 = async (link,file) => {
         let result = await props.UploadImagesToS3(link,file);
@@ -56,8 +52,10 @@ const OtherVehicle = (props)=>{
                 }
 
             </div>
-            <input multiple type="file" name="photo" id="photo" accept="image/*" capture="environment" className="img-uploadbtn" onChange={(e)=>
-                uploadMultiple(e) }/>
+            <input multiple type="file" name="photo" id="photo" accept="image/*" capture="environment" className="img-uploadbtn"
+                   onChange={(event) => uploadMultiple(event)}
+
+            />
 
             <div id="select-container" className="select-container1">
                 <label htmlFor="photo" id="capture-photo" className="option-container1">

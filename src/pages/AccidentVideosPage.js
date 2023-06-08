@@ -4,39 +4,34 @@ import UploadAndDisplayImage from "../components/UploadImage";
 import {connect} from "react-redux";
 import {getMediaUploadUrl, UploadImagesToS3} from "../store/claimReportReducer";
 import "./AccidentVideosPage.css"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 const AccidentVideo = (props)=>{
 
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
 
+    useEffect(() => {
+    }, [file]);
+
     const navigateNextScreen = async () => {
-        // document.getElementById('accidentbuttons').setAttribute("disabled","disabled");
-        for(let i = 0; i < fileObj.length; i++){
-            const mediaData = {fileName: fileObj ? fileObj[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
+        for(let i = 0; i < file.length; i++){
+            const mediaData = {fileName: file ? file[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
             let link =  await props.getMediaUploadUrl(mediaData);
             let result = await uploadImageToS3(link,file);
         }
         navigate('/towing-facility')
     };
 
-    // get media upload URL
-    // const getMediaUploadURL = async (newFile) =>{
-    //     setFile([...file,...newFile]);
-    // }
+    const uploadMultiple = (event) => {
+        setFile([...file, ...event.target.files]);
+        setModalOpen(true);
+
+    };
 
     //upload images to s3 bucket
     const uploadImageToS3 = async (link,file) => {
         let result = await props.UploadImagesToS3(link,file);
-    }
-
-    var fileObj = [];
-    const uploadMultiple = (e) => {
-        const newArr = [...fileObj,...e.target.files];
-        fileObj= [...newArr];
-        setModalOpen(true);
-        setFile([...fileObj]);
     }
 
     return (

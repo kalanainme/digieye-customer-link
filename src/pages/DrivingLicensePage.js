@@ -4,39 +4,34 @@ import UploadAndDisplayImage from "../components/UploadImage";
 import {connect} from "react-redux";
 import {getMediaUploadUrl, UploadImagesToS3} from "../store/claimReportReducer";
 import "./DrivingLicensePage.css"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 const DrivingLicense = (props)=>{
 
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
 
+    useEffect(() => {
+    }, [file]);
+
     const navigateNextScreen = async () => {
-        // document.getElementById('drivebuttons').setAttribute("disabled","disabled");
-        for(let i = 0; i < fileObj.length; i++){
-            const mediaData = {fileName: fileObj ? fileObj[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
+        for(let i = 0; i < file.length; i++){
+            const mediaData = {fileName: file ? file[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
             let link =  await props.getMediaUploadUrl(mediaData);
             let result = await uploadImageToS3(link,file);
         }
         navigate('/accident-videos')
     };
 
-    // get media upload URL
-    const getMediaUploadURL = async (newFile) =>{
-        setFile([...file,...newFile]);
-    }
 
     //upload images to s3 bucket
     const uploadImageToS3 = async (link,file) => {
         let result = await props.UploadImagesToS3(link,file);
     }
-    var fileObj = [];
-    const uploadMultiple = (e) => {
-        const newArr = [...fileObj,...e.target.files];
-        fileObj= [...newArr];
+    const uploadMultiple = (event) => {
+        setFile([...file, ...event.target.files]);
         setModalOpen(true);
-        setFile([...fileObj]);
-    }
+    };
     return (
         <>
             <Header/>
