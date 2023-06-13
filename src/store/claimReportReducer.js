@@ -121,12 +121,12 @@ export const getMediaUploadUrl = (mediaData) => async dispatch => {
 export const UploadImagesToS3 = (s3Url,file) => async dispatch => {
     dispatch({ type: claimReportActions.UPLOAD_IMAGES_TO_S3_ATTEMPT });
     try {
-        // let formData = new FormData();
-        // formData.append("file", file);
-
+        let formData = new FormData();
+        formData.append("file", file);
         const { data } = await axios.put(s3Url,file,{
             headers: {
-                'Access-Control-Allow-Origin': "*"
+                'Access-Control-Allow-Origin': "*",
+                'Content-Type': 'multipart/form-data',
             }
         });
         const { message:msg, status } = data;
