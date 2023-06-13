@@ -123,7 +123,7 @@ export const UploadImagesToS3 = (s3Url,file) => async dispatch => {
     try {
         let formData = new FormData();
         formData.append("file", file);
-        const { data } = await axios.put(s3Url,file,{
+        const { data } = await axios.put(s3Url,formData,{
             headers: {
                 'Access-Control-Allow-Origin': "*",
                 'Content-Type': 'multipart/form-data',
