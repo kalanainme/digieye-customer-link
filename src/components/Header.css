@@ -1,8 +1,8 @@
 .header {
-    background: #1f4287;
+    background: rgb(255, 255, 255);
     mix-blend-mode: normal;
     position: relative;
     height: 50px;
-    padding: 8px 20px;
-    /*display: flex;*/
+    padding: 8px 25px;
+    display: flex;
 }
