@@ -16,7 +16,7 @@ code {
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
-  background-image: url("background2.jpg");
+  /* background-image: url("background2.jpg"); */
   background-size: 600px 800px;
 }
 @media screen and (max-width: 530px) {
@@ -31,7 +31,7 @@ code {
     width: 100%;
     margin: 0 auto;
     min-height: 100vh;
-    background-image: url("background2.jpg");
+    /* background-image: url("background2.jpg"); */
     background-size: 600px 800px;
   }
 }
@@ -41,7 +41,7 @@ code {
     width: 100%;
     margin: 0 auto;
     min-height: 100vh;
-    background-image: url("background2.jpg");
+    /* background-image: url("background2.jpg"); */
     background-size: 600px 800px;
   }
 
