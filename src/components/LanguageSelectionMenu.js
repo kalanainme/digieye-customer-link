@@ -19,7 +19,7 @@ const defaultTheme = createTheme();
 
 const LanguageSelectionMenu = (props) => {
   const [showLanguageButtons, setShowLanguageButtons] = useState(false);
-  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(true);
 
   const changeLanguage = (event) => {
     const newLanguage = event.target.value;
@@ -115,7 +115,7 @@ const LanguageSelectionMenu = (props) => {
                 <Button
                   type="primary"
                   variant="#00bcd4"
-                  disabled={!showLanguageButtons}
+                  disabled={!acceptTerms}
                   value="sn"
                   onClick={changeLanguage}
                   style={{
@@ -132,7 +132,7 @@ const LanguageSelectionMenu = (props) => {
                 <Button
                   type="primary"
                   variant="#00bcd4"
-                  disabled={!showLanguageButtons}
+                  disabled={!acceptTerms}
                   value="ta"
                   onClick={changeLanguage}
                   style={{
@@ -149,7 +149,7 @@ const LanguageSelectionMenu = (props) => {
                 <Button
                   type="primary"
                   variant="#00bcd4"
-                  disabled={!showLanguageButtons}
+                  disabled={!acceptTerms}
                   value="en"
                   onClick={changeLanguage}
                   style={{

@@ -25,9 +25,11 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '300px',
-  height:'350px',
+  height:'200px',
+  marginTop:'100px',
   bgcolor: '#EDEDEDE5',
   borderRadius:'20px',
+  marginRight:'2px',
   p: 4,
 };
 
@@ -81,8 +83,31 @@ const ThankyouPage = () => {
             </Typography>
             </div>
 
-            <div className="apps">
-            <Box display={{display:'flex'}} noValidate sx={{ mt: 20 }}>
+            <Box sx={style}>
+                <Typography  gutterBottom color="#03537E" style={{fontweight:'bold'}}>
+                <p style={{color:'#03537E',fontWeight:'bold',fontFamily:'Inter',fontSize:20}}>Rate your experience</p> 
+                <p style={{color:"#757575",fontSize:14}}>Your opinion matter to us! Rate our app and let us know how we can make it event better for you.</p>
+                </Typography>
+            <Box
+             sx={{
+             '& > legend': { mt: 2 },
+              justifyContent: 'center'
+                }}
+             >
+      <Rating
+        name="simple-controlled"
+        style={{fontSize:50}}
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      />
+     </Box>
+      <div id="map" className="relative h-96 w-full mt-4 rounded shadow-md"></div>
+     
+
+         <div className="apps">
+            <Box display={{display:'flex'}} noValidate sx={{ mt: 2}}>
               <Button
                 type="primary"
                 fullWidth
@@ -91,12 +116,16 @@ const ThankyouPage = () => {
                 sx={{ mt: 2, mb: 1 }}
                 onClick={()=>openLocationModal()}
               >
-               OK
+               rate 
               </Button>       
             </Box>
             </div>
+            </Box>
 
-            <>
+
+
+
+            {/* <>
 {locationModalVisible&&
 <Box sx={style} >
 <img src={cross} style={{float:'right'}} onClick={()=>closeLocationModal()}/>
@@ -130,7 +159,7 @@ const ThankyouPage = () => {
       </Box>
 }
 
-</>
+</> */}
 
 
             </Box>

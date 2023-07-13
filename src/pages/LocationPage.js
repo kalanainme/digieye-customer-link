@@ -83,124 +83,27 @@ const LocationPage = (props) =>{
   
 
 
-    // const getLatitudeAndLongitude = async()=> {
-    //   if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(
-    //        (position)=> {
-    //         // const position = await new Promise((resolve, reject) => {navigator.geolocation.getCurrentPosition(resolve, reject);});
-    //         const latitude = position.coords.latitude;
-    //         const longitude = position.coords.longitude;
-    //         console.log(latitude);
-    //         console.log(longitude);
-    //       },
-    //        (error)=> {
-    //         console.error('Error getting location:', error.message);
-    //       }
-    //     );
-    //   } else {
-    //     console.error('Geolocation is not supported by this browser.');
-    //   }
-    // }
-
-    // const handleGetLocation = () => {
-    //   if (navigator.permissions) {
-    //     navigator.permissions
-    //       .query({ name: 'geolocation' })
-    //       .then((permissionStatus) => {
-    //         if (permissionStatus.state === 'granted') {
-    //           getCurrentPosition();
-    //         } else if (permissionStatus.state === 'prompt') {
-    //           permissionStatus.onchange = () => {
-    //             if (permissionStatus.state === 'granted') {
-    //               getCurrentPosition();
-    //             }
-    //           };
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         setError('Error getting location permission: ' + error.message);
-    //         console.error('Error getting location permission:', error);
-    //       });
-    //   } else if (navigator.geolocation) {
-    //     getCurrentPosition();
-    //   } else {
-    //     setError('Geolocation is not supported by this browser.');
-    //     console.error('Geolocation is not supported by this browser.');
-    //   }
-    // };
-  
-    // const getCurrentPosition = () => {
-    //   navigator.geolocation.getCurrentPosition(
-    //     (position) => {
-    //       setLatitude(position.coords.latitude);
-    //       setLongitude(position.coords.longitude);
-    //       console.log(latitude);
-    //       console.log(longitude);
-    //       setError(null);
-    //     },
-    //     (error) => {
-    //       setError('Error getting location: ' + error.message);
-    //       console.error('Error getting location:', error);
-    //     }
-    //   );
-    // };
-
-
-    const handleGetLocation = () => {
-      navigator.permissions
-        .query({ name: 'geolocation' })
-        .then((permissionStatus) => {
-          console.log(permissionStatus);
-          if (permissionStatus.state === 'granted') {
-            getCurrentPosition();
-          } else if (permissionStatus.state === 'prompt') {
-            permissionStatus.onchange = () => {
-              if (permissionStatus.state === 'granted') {
-                getCurrentPosition();
-              }
-            };
-          } else {
-            requestPermission();
+    const getLatitudeAndLongitude = async()=> {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+           (position)=> {
+            // const position = await new Promise((resolve, reject) => {navigator.geolocation.getCurrentPosition(resolve, reject);});
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            setLocationModalVisible(false);
+            setLocation(true);
+            navigateNextScreen();
+            console.log(latitude);
+            console.log(longitude);
+          },
+           (error)=> {
+            console.error('Error getting location:', error.message);
           }
-        })
-        .catch((error) => {
-          setError('Error getting location permission: ' + error.message);
-          console.error('Error getting location permission:', error);
-        });
-    };
-  
-    const requestPermission = () => {
-      navigator.permissions
-        .query({ name: 'geolocation' })
-        .then((permissionStatus) => {
-          if (permissionStatus.state === 'granted') {
-            getCurrentPosition();
-          } else {
-            setError('Location permission denied.');
-            console.error('Location permission denied.');
-          }
-        })
-        .catch((error) => {
-          setError('Error requesting location permission: ' + error.message);
-          console.error('Error requesting location permission:', error);
-        });
-    };
-  
-    const getCurrentPosition = () => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-          console.log(latitude);
-          console.log(longitude);
-          setError(null);
-        },
-        (error) => {
-          setError('Error getting location: ' + error.message);
-          console.error('Error getting location:', error);
-        }
-      );
-    };
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    }
 
     return(
         <>
@@ -246,7 +149,7 @@ const LocationPage = (props) =>{
                 sx={{ mt: 2, mb: 1 }}
                 onClick={()=>navigateBackScreen()}
               >
-                Back 
+                {translations.bu2}
               </Button>}
               {!location &&<Button
                 type="primary"
@@ -254,9 +157,9 @@ const LocationPage = (props) =>{
                 variant="white"
                 style={{backgroundColor:'#03537E',borderRadius: '50px',fontWeight: 'bold', minWidth: '200px', minHeight:'30px'}}
                 sx={{ mt: 2, mb: 1 }}
-                onClick={()=>handleGetLocation()}
+                onClick={()=>getLatitudeAndLongitude()}
               >
-               Enable Location
+               {translations.bu3}
               </Button>}
 
               {location &&<Button
@@ -267,7 +170,7 @@ const LocationPage = (props) =>{
                 sx={{ mt: 2, mb: 1 }}
                 onClick={()=>navigateNextScreen()}
               >
-                NEXT
+               {translations.bu1}
               </Button>}                 
             </Box>
             </div>

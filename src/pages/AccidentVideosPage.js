@@ -161,7 +161,7 @@ const AccidentVideo = (props)=>{
                 onClick={navigateBack}
             
               >
-                Back 
+               {translations.bu2}
               </Button>
               <Button
                 type="primary"
@@ -171,7 +171,7 @@ const AccidentVideo = (props)=>{
                 sx={{ mt: 2, mb: 1 }}
                 onClick={navigateNextScreen}
               >
-               Skip video
+               {translations.bu6}
               </Button>
               {<Button
                 type="primary"
@@ -181,7 +181,7 @@ const AccidentVideo = (props)=>{
                 sx={{ mt: 2, mb: 1 }}
                 onClick={navigateNextScreen}
                 >
-                    Next
+                {translations.bu1}
               </Button> 
               }  
             </Box>
