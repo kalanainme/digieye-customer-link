@@ -161,7 +161,7 @@ const OtherVehicle = (props)=>{
                 onClick={navigateBack}
             
               >
-                Back 
+                {translations.bu2}
               </Button>
               <Button
                 type="primary"
@@ -171,7 +171,7 @@ const OtherVehicle = (props)=>{
                 sx={{ mt: 2, mb: 1 }}
                 onClick={navigateNextScreen}
               >
-               NEXT
+               {translations.bu1}
               </Button>       
             </Box>
             </div>

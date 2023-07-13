@@ -35,13 +35,23 @@ const translations = new LocalizedStrings({
      tw1:'ඔබට ඇදගෙන යාම අවශ්‍යද',
      tw2:'ඔබට ඇදගෙන යාම අවශ්‍ය නම් කරුණාකර අපට දන්වන්න',
      tw3:'ඔබට ඇදගෙන යාමේ සහාය අවශ්‍ය නම් කරුණාකර අපට දන්වන්න. ඔබගේ වාහනය ආරක්ෂිතව අපේක්ෂිත ස්ථානයට ප්‍රවාහනය කිරීම සහතික කිරීමට සහ උපකාර කිරීමට අපි මෙහි සිටිමු.',
-
+     tw4:'මෙම පහසුකම ඔබගේ රක්ෂණ ප්‍රතිපත්ති නියමයන් සහ කොන්දේසි වලට යටත් වන බව කරුණාවෙන් සලකන්න',
 
 
       //thank you page
       tn1:'සාර්ථකව ඉදිරිපත් කරන ලදී',
       tn2:'පරීක්ෂණය සාර්ථකව ඉදිරිපත් කර ඇත!',
       tn3:'අපි ඔබගේ සහයෝගය අගය කරන අතර ඔබට තවදුරටත් සහාය වීමට බලාපොරොත්තු වෙමු.',
+
+      //buttons
+        
+      bu1:'මීළග',
+      bu2:'ආපසු',
+      bu3:'ස්ථානය සක්‍රිය කරන්න',
+      bu4:'ඔව්',
+      bu5:'නැත',
+      bu6:'වීඩියෝව මඟ හරින්න',
+      bu7:'',
 
 
   },
@@ -82,12 +92,22 @@ const translations = new LocalizedStrings({
     tw1:'உங்களுக்கு இழுவை தேவையா',
     tw2:'உங்களுக்கு இழுத்தல் தேவைப்பட்டால் எங்களுக்குத் தெரியப்படுத்தவும்',
     tw3:'உங்களுக்கு இழுவை உதவி தேவைப்பட்டால், தயவுசெய்து எங்களுக்குத் தெரிவிக்கவும். உங்கள் வாகனம் விரும்பிய இடத்திற்குப் பாதுகாப்பாகக் கொண்டு செல்லப்படுவதை உறுதிப்படுத்தவும் உதவவும் நாங்கள் இங்கு இருக்கிறோம்.',
-
+    tw4:'இந்த வசதி உங்கள் காப்பீட்டுக் கொள்கை விதிமுறைகள் மற்றும் நிபந்தனைகளுக்கு உட்பட்டது என்பதை தயவுசெய்து கவனிக்கவும்',
 
     //thank you page
     tn1:'வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது',
     tn2:'விசாரணை வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது!',
-    tn3:'உங்கள் ஒத்துழைப்பை நாங்கள் பாராட்டுகிறோம், மேலும் உங்களுக்கு உதவ எதிர்நோக்குகிறோம்.',  
+    tn3:'உங்கள் ஒத்துழைப்பை நாங்கள் பாராட்டுகிறோம், மேலும் உங்களுக்கு உதவ எதிர்நோக்குகிறோம்.', 
+    
+    //buttons
+    bu1:'அடுத்து',
+    bu2:'பின் செல்ல',
+    bu3:'இருப்பிடத்தை இயக்கு',
+    bu4:'ஆம்',
+    bu5:'இல்லை',
+    bu6:'தவிர்க்கவும்',
+    bu7:'',
+
     
   },
 
@@ -128,12 +148,21 @@ const translations = new LocalizedStrings({
     tw1:'Do You need Towing',
     tw2:'Please Let us know if you need Towing',
     tw3:'Please inform us if you require towing assistance. We are here to help and ensure your vehicle is safely transported to the desired location.',
-
+    tw4:'Kindly note that this facility is subject to your Insurance Policy Terms ans Conditions',
 
     //thank you page
     tn1:'Successfully Submitted ',
     tn2:'Inquiry has been submitted Successfully!',
     tn3:'We appreciate your cooperation and look forward to assisting you further.',
+
+    //buttons 
+    bu1:'Next',
+    bu2:'Back',
+    bu3:'Enable Location',
+    bu4:'Yes',
+    bu5:'No',
+    bu6:'Skip',
+    bu7:'',
    
   
   },

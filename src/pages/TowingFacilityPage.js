@@ -96,6 +96,14 @@ const TowingFacility = () =>{
             </Typography>
             </div>
 
+            <div>
+              <br/>
+              <br/>
+            <Typography component="h1" gutterBottom color="red" style={{fontFamily:"Inter",fontSize:14}}>
+            {translations.tw4}
+            </Typography>
+            </div>
+
 
              
     <div className="apps">
@@ -109,7 +117,7 @@ const TowingFacility = () =>{
                 onClick={()=>openLocationModal()}
             
               >
-                YES 
+                {translations.bu4}
               </Button>
               <Button
                 type="primary"
@@ -119,7 +127,7 @@ const TowingFacility = () =>{
                 sx={{ mt: 2, mb: 1 }}
                 onClick={()=>navigateThankYouPage()}
               >
-                No
+                {translations.bu5}
               </Button>       
             </Box>
             </div>
