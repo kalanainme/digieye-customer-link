@@ -78,8 +78,38 @@ const AccidentVideo = (props)=>{
       setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
     };
     
-    const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+    // const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
     
+    const handleUpload = async ({ fileList: newFile }) => {
+      console.log(newFile);
+  
+      const urlData = {
+        uniqueCode: "169016818635331b62058",
+        tenantId: "hnb",
+        mediaType: "CUS_VEHILE_PHOTO",
+        fileName: newFile[0].name,
+        mimeType: newFile[0].type
+      };
+      try {
+        // Get the media upload URL
+        const uploadUrlResponse = await props.getMediaUploadUrl(urlData);
+        const url = uploadUrlResponse?.url; // Assuming your API returns the URL in the response object.
+        console.log(url);
+  
+        // Upload the image to S3 bucket using the obtained URL
+        await UploadImagesToS3(url, newFile);
+  
+        console.log(`Image ${file.name} uploaded successfully.`);
+      } catch (error) {
+        console.error(`Error uploading image ${file.name}:`, error);
+      }
+      // setFileList(newFile);
+  
+    }
+  
+
+
+
     const uploadButton = (
       <div style={{color:"#03537E"}}>
         <img src={vid}/>
@@ -136,13 +166,13 @@ const AccidentVideo = (props)=>{
                 }
 
             </div> */}
-<div style={{maxHeight:'200px', overflowY:'scroll',marginRight:'50px',minWidth:'300px'}}>
+<div style={{maxHeight:'200px', overflowY:'auto',marginRight:'50px',minWidth:'300px'}}>
 <Upload
       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
       listType="picture-card"
       fileList={fileList}
       onPreview={handlePreview}
-      onChange={handleChange}
+      onChange={handleUpload}
       multiple
       accept='.mp4,.avi,.mov,.mkv'
     >

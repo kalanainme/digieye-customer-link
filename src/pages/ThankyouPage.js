@@ -26,7 +26,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: '300px',
   height:'200px',
-  marginTop:'100px',
+  marginTop:'160px',
   bgcolor: '#EDEDEDE5',
   borderRadius:'20px',
   marginRight:'2px',
@@ -85,8 +85,8 @@ const ThankyouPage = () => {
 
             <Box sx={style}>
                 <Typography  gutterBottom color="#03537E" style={{fontweight:'bold'}}>
-                <p style={{color:'#03537E',fontWeight:'bold',fontFamily:'Inter',fontSize:20}}>Rate your experience</p> 
-                <p style={{color:"#757575",fontSize:14}}>Your opinion matter to us! Rate our app and let us know how we can make it event better for you.</p>
+                <p style={{color:'#03537E',fontWeight:'bold',fontFamily:'Inter',fontSize:20, marginRight:'3px'}}>{translations.tn4}</p> 
+                <p style={{color:"#757575",fontSize:14}}>{translations.tn5}</p>
                 </Typography>
             <Box
              sx={{

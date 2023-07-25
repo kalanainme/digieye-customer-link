@@ -32,8 +32,12 @@ const style = {
   bgcolor: '#EDEDEDE5',
   // border: '2px solid #000',
   borderRadius: '20px',
+  marginTop:'30px',
+  marginLeft:'-8px',
   p: 4,
 };
+
+
 const TowingFacility = () =>{
 
     const [locationModalVisible, setLocationModalVisible] = useState(false);
@@ -150,6 +154,8 @@ const TowingFacility = () =>{
             </div> */}
 
 <>
+
+
 {locationModalVisible&&
       <Box sx={style}>
         <img src={cross} style={{float:'right'}} onClick={()=>closeLocationModal()}/>

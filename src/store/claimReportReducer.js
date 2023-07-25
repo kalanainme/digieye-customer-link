@@ -97,12 +97,7 @@ export const getCustomerLink = (body) => async dispatch => {
 export const getMediaUploadUrl = (mediaData) => async dispatch => {
     dispatch({ type: claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT });
     try {
-        const { data } = await axios.post(`https://jj3e8so6sf.execute-api.ap-southeast-1.amazonaws.com/dev/upload/link`, mediaData, {
-            headers: {
-                'authorization' : `${localStorage.getItem('hash_token')}`,
-                'Access-Control-Allow-Origin': "*"
-            }
-        });
+        const { data } = await axios.post(`hnb/web/tracker/v1/generateUploadUrlData`, mediaData);
         const { message:msg, status } = data;
         if (status === 'error'){
             // message.error(msg);
@@ -110,7 +105,7 @@ export const getMediaUploadUrl = (mediaData) => async dispatch => {
             return false;
         }
         dispatch({ type: claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT_SUCCESS, payload: data, });
-        return data.link;
+        return data.url;
     } catch ({ response }) {
         // message.error(response.message ? response.message : 'something went wrong!!! Please try again later');
         dispatch({ type: claimReportActions.GET_CUSTOMER_LINK_ATTEMPT_FAILED });
@@ -118,17 +113,10 @@ export const getMediaUploadUrl = (mediaData) => async dispatch => {
     }
 };
 
-export const UploadImagesToS3 = (s3Url,file) => async dispatch => {
+export const UploadImagesToS3 = (s3Url) => async dispatch => {
     dispatch({ type: claimReportActions.UPLOAD_IMAGES_TO_S3_ATTEMPT });
     try {
-        let formData = new FormData();
-        formData.append("file", file);
-        const { data } = await axios.put(s3Url,formData,{
-            headers: {
-                'Access-Control-Allow-Origin': "*",
-                'Content-Type': 'multipart/form-data',
-            }
-        });
+        const { data } = await axios.put(s3Url);
         const { message:msg, status } = data;
         if (status === 'error'){
             // message.error(msg);
