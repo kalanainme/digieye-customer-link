@@ -42,6 +42,12 @@ const translations = new LocalizedStrings({
       tn1:'සාර්ථකව ඉදිරිපත් කරන ලදී',
       tn2:'පරීක්ෂණය සාර්ථකව ඉදිරිපත් කර ඇත!',
       tn3:'අපි ඔබගේ සහයෝගය අගය කරන අතර ඔබට තවදුරටත් සහාය වීමට බලාපොරොත්තු වෙමු.',
+      tn4:'ඔබේ අත්දැකීම් ශ්‍රේණිගත කරන්න',
+      tn5:'අපගේ යෙදුම ශ්‍රේණිගත කර, එය ඔබට තව දුරටත් වඩා හොඳ යෙදුමක් කරන්නේ කෙසේදැයි අපට දන්වන්න',
+
+      
+
+    
 
       //buttons
         
@@ -51,7 +57,6 @@ const translations = new LocalizedStrings({
       bu4:'ඔව්',
       bu5:'නැත',
       bu6:'වීඩියෝව මඟ හරින්න',
-      bu7:'',
 
 
   },
@@ -97,8 +102,10 @@ const translations = new LocalizedStrings({
     //thank you page
     tn1:'வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது',
     tn2:'விசாரணை வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது!',
-    tn3:'உங்கள் ஒத்துழைப்பை நாங்கள் பாராட்டுகிறோம், மேலும் உங்களுக்கு உதவ எதிர்நோக்குகிறோம்.', 
-    
+    tn3:'உங்கள் ஒத்துழைப்பை நாங்கள் பாராட்டுகிறோம், மேலும் உங்களுக்கு உதவ எதிர்நோக்குகிறோம்.',
+    tn4:'உங்கள் அனுபவத்தை மதிப்பிடுங்கள்',
+    tn5:'உங்கள் கருத்து எங்களுக்கு முக்கியம்! எங்கள் பயன்பாட்டை மதிப்பிட்டு, அதை எவ்வாறு சிறப்பாகச் செய்யலாம் என்பதை எங்களுக்குத் தெரியப்படுத்துங்கள்.',
+  
     //buttons
     bu1:'அடுத்து',
     bu2:'பின் செல்ல',
@@ -154,6 +161,8 @@ const translations = new LocalizedStrings({
     tn1:'Successfully Submitted ',
     tn2:'Inquiry has been submitted Successfully!',
     tn3:'We appreciate your cooperation and look forward to assisting you further.',
+    tn4:'Rate your experience',
+    tn5:'Your opinion matter to us! Rate our app and let us know how we can make it event better for you.',
 
     //buttons 
     bu1:'Next',
