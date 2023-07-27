@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
 import UploadAndDisplayImage from "../components/UploadImage";
 import {connect} from "react-redux";
-import {getMediaUploadUrl, UploadImagesToS3} from "../store/claimReportReducer";
+import {getMediaUploadUrl, UploadImagesToS3,saveFileKeys} from "../store/claimReportReducer";
 import "./OtherVehiclePage.css"
 import React, {useEffect, useState} from "react";
 
@@ -18,6 +18,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import p from '../p.png'
 import cam from '../cam.png'
+import {ALLOWED_MEDIA_TYPES} from "../constants/constants"
 
 
 
@@ -34,31 +35,27 @@ const getBase64 = (file) =>
 
 const OtherVehicle = (props)=>{
 
+    const uniqueCode = localStorage.getItem('uniqueCode');
+    const tenantId = localStorage.getItem('tenantId');
+
     const navigate = useNavigate();
     const [file, setFile] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-
-    useEffect(() => {
-        console.log('UpdatedFiles=>', file);
-    }, [file]);
+    const [fileKeys, setFileKeys] = useState([]);
 
     const navigateNextScreen = async () => {
-        for(let i = 0; i < file.length; i++){
-            const mediaData = {file: file ? file[i].name : '', fileType: "CUSTOMER-PARTY-MEDIA"};
-            let link =  await props.getMediaUploadUrl(mediaData);
-            let result = await uploadImageToS3(link,file);
-        }
-        navigate('/driving-license')
-    };
 
-    const uploadMultiple = (event) => {
-        console.log('NewFile=>', event.target.files);
-        setFile([...file, ...event.target.files]);
+      const fileData = {
+        uniqueCode: uniqueCode,
+        tenantId: tenantId,
+        files: fileKeys
+      };
+  
+      const result = await props.saveFileKeys(fileData, tenantId);
+      if (result) {
+        navigate('/driving-license')
+      }
     };
-    //upload images to s3 bucket
-    const uploadImageToS3 = async (link,file) => {
-        let result = await props.UploadImagesToS3(link,file);
-    }
 
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
@@ -78,33 +75,26 @@ const OtherVehicle = (props)=>{
       setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
     };
     
-    // const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+    const removeImage = (deletedFile ) => {
+      const availableimages = fileKeys.filter((item) => item.uid !== deletedFile.uid);
+      setFileKeys(availableimages);
+    };
+    
+    const handleUpload = async (file) => {
 
-    const handleUpload = async ({ fileList: newFile }) => {
-      console.log(newFile);
-  
       const urlData = {
-        uniqueCode: "169016818635331b62058",
-        tenantId: "hnb",
-        mediaType: "CUS_VEHILE_PHOTO",
-        fileName: newFile[0].name,
-        mimeType: newFile[0].type
+        uniqueCode: uniqueCode,
+        tenantId: tenantId,
+        mediaType: ALLOWED_MEDIA_TYPES.OtherVehiclePhoto,
+        fileName: file.name,
+        mimeType: file.type
       };
-      try {
+  
         // Get the media upload URL
-        const uploadUrlResponse = await props.getMediaUploadUrl(urlData);
-        const url = uploadUrlResponse?.url; // Assuming your API returns the URL in the response object.
-        console.log(url);
-  
-        // Upload the image to S3 bucket using the obtained URL
-        await UploadImagesToS3(url, newFile);
-  
-        console.log(`Image ${file.name} uploaded successfully.`);
-      } catch (error) {
-        console.error(`Error uploading image ${file.name}:`, error);
-      }
-      // setFileList(newFile);
-  
+        const urlResponse = await props.getMediaUploadUrl(urlData, tenantId);   
+        setFileKeys(fileKeys => [...fileKeys, { key: urlResponse.key, mimeType: file.type, uid: file.uid}]);
+        await props.UploadImagesToS3(file,urlResponse.url);
+    
     }
   
     
@@ -167,12 +157,12 @@ const OtherVehicle = (props)=>{
             </div> */}
 <div style={{maxHeight:'200px', overflowY:'auto',marginRight:'50px',minWidth:'300px'}}>
 <Upload
-      // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+     action={handleUpload}
       listType="picture-card"
-      fileList={fileList}
+      // fileList={fileList}
       onPreview={handlePreview}
-      onChange={handleUpload}
-      multiple
+      onRemove={removeImage}
+      
     >
       {fileList.length >= 10 ? null : uploadButton}
     </Upload>
@@ -249,14 +239,15 @@ const OtherVehicle = (props)=>{
 };
 
 const mapDispatchToProps = state => {
-    console.log(state.claimReport.mediaUploadURL)
     return {
         mediaUploadURL: state.claimReport.mediaUploadURL,
-        isLoading: state.claimReport.isLoading
+        isLoading: state.claimReport.isLoading,
+        uploadedImageURLs: state.claimReport.uploadedImageURLs,
+        uploadURLData: state.claimReport.uploadURLData
     };
 };
 export default connect(mapDispatchToProps, {
-    getMediaUploadUrl,UploadImagesToS3
+    getMediaUploadUrl,UploadImagesToS3,saveFileKeys
 })(OtherVehicle);
 
 

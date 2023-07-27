@@ -1,4 +1,5 @@
 import axios from "axios";
+import {BASE_URL} from "../config/config";
 
 export const claimReportActions = {
     GET_MEDIA_UPLOAD_URL_ATTEMPT: 'GET_MEDIA_UPLOAD_URL_ATTEMPT',
@@ -13,19 +14,25 @@ export const claimReportActions = {
     UPDATE_LOCATION_ATTEMPT: 'UPDATE_LOCATION_ATTEMPT',
     UPDATE_LOCATION_ATTEMPT_SUCCESS: 'UPDATE_LOCATION_ATTEMPT_SUCCESS',
     UPDATE_LOCATION_ATTEMPT_FAILED: 'UPDATE_LOCATION_ATTEMPT_FAILED',
+    SAVE_FILE_KEYS_ATTEMPT: 'SAVE_FILE_KEYS_ATTEMPT',
+    SAVE_FILE_KEYS_ATTEMPT_FAILED: 'SAVE_FILE_KEYS_ATTEMPT_FAILED',
+    SAVE_FILE_KEYS_ATTEMPT_SUCCESS: 'SAVE_FILE_KEYS_ATTEMPT_SUCCESS',
+
 };
 
 const initialState = {
     isLoading: false,
     mediaUploadURL: null,
-    hashToken: null
+    locationData: null,
+    uploadURLData: null,
+    fileData: null
 
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
             case claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT_SUCCESS: {
-                return { ...state, isLoading: false, mediaUploadURL: action.payload.link };
+                return { ...state, isLoading: false, uploadURLData: action.payload };
             }
             case claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT_FAILED: {
                 return { ...state, isLoading: false };
@@ -34,7 +41,7 @@ const reducer = (state = initialState, action) => {
                 return { ...state, isLoading: true };
             }
             case claimReportActions.GET_CUSTOMER_LINK_ATTEMPT_SUCCESS: {
-                return { ...state, isLoading: false, hashToken: action.payload.hash };
+                return { ...state, isLoading: false, uploadURLData: action.payload };
             }
             case claimReportActions.GET_CUSTOMER_LINK_ATTEMPT_FAILED: {
                 return { ...state, isLoading: false };
@@ -55,10 +62,19 @@ const reducer = (state = initialState, action) => {
             return { ...state, isLoading: true };
         }
         case claimReportActions.UPDATE_LOCATION_ATTEMPT_SUCCESS: {
-            return { ...state, isLoading: false, hashToken: action.payload};
+            return { ...state, isLoading: false, locationData: action.payload};
         }
         case claimReportActions.UPDATE_LOCATION_ATTEMPT_FAILED: {
             return { ...state, isLoading: false };
+        }
+        case claimReportActions.SAVE_FILE_KEYS_ATTEMPT_SUCCESS: {
+            return { ...state, isLoading: false, fileData: action.payload };
+        }
+        case claimReportActions.SAVE_FILE_KEYS_ATTEMPT_FAILED: {
+            return { ...state, isLoading: false };
+        }
+        case claimReportActions.SAVE_FILE_KEYS_ATTEMPT: {
+            return { ...state, isLoading: true };
         }
         default: {
             return state;
@@ -93,19 +109,40 @@ export const getCustomerLink = (body) => async dispatch => {
     }
 };
 
-
-export const getMediaUploadUrl = (mediaData) => async dispatch => {
-    dispatch({ type: claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT });
+//update incident location
+export const updateLocation = (locationData, accountId) => async dispatch => {
+    dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT });
     try {
-        const { data } = await axios.post(`hnb/web/tracker/v1/generateUploadUrlData`, mediaData);
-        const { message:msg, status } = data;
-        if (status === 'error'){
-            // message.error(msg);
-            dispatch({ type: claimReportActions.GET_CUSTOMER_LINK_ATTEMPT_FAILED });
+        const { data } = await axios.post(`${BASE_URL}${accountId}/web/tracker/v1/location`, locationData);
+        console.log(data)
+
+        const { message, success } = data;
+        if (success === 'false'){
+            dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT_FAILED });
             return false;
         }
-        dispatch({ type: claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT_SUCCESS, payload: data, });
-        return data.url;
+        dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT_SUCCESS, payload: data});
+        return true;
+    } catch ({ response }) {
+        // message.error(response.message ? response.message : 'something went wrong!!! Please try again later');
+        dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT_FAILED });
+        return false;
+    }
+};
+
+//generate media upload url
+export const getMediaUploadUrl = (mediaData, accountId) => async dispatch => {
+    dispatch({ type: claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT });
+    try {
+        const { data } = await axios.post(`${BASE_URL}${accountId}/web/tracker/v1/generateUploadUrlData`, mediaData);
+        const { message, success } = data;
+        if (success === 'false'){
+            // message.error(msg);
+            dispatch({ type: claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT_FAILED });
+            return false;
+        }
+        dispatch({ type: claimReportActions.GET_MEDIA_UPLOAD_URL_ATTEMPT_SUCCESS, payload: data.data, });
+        return data.data;
     } catch ({ response }) {
         // message.error(response.message ? response.message : 'something went wrong!!! Please try again later');
         dispatch({ type: claimReportActions.GET_CUSTOMER_LINK_ATTEMPT_FAILED });
@@ -113,10 +150,15 @@ export const getMediaUploadUrl = (mediaData) => async dispatch => {
     }
 };
 
-export const UploadImagesToS3 = (s3Url) => async dispatch => {
+// Upload the image to S3 bucket using the pre-signed URL
+export const UploadImagesToS3 = (file, preSignedUrl) => async dispatch => {
+
     dispatch({ type: claimReportActions.UPLOAD_IMAGES_TO_S3_ATTEMPT });
     try {
-        const { data } = await axios.put(s3Url);
+        const { data } = await axios.put(preSignedUrl, file, {
+            headers: {
+              'Content-Type': file.type,
+            },});
         const { message:msg, status } = data;
         if (status === 'error'){
             // message.error(msg);
@@ -132,28 +174,25 @@ export const UploadImagesToS3 = (s3Url) => async dispatch => {
     }
 };
 
-export const updateLocation = (locationData) => async dispatch => {
-    dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT });
+//save fileKeys
+export const saveFileKeys = (fileData,accountId) => async dispatch => {
+    dispatch({ type: claimReportActions.SAVE_FILE_KEYS_ATTEMPT });
     try {
-        const { data } = await axios.put(`https://jj3e8so6sf.execute-api.ap-southeast-1.amazonaws.com/dev/location`, locationData, {
-            headers: {
-                'authorization' : `${localStorage.getItem('hash_token')}`,
-                'Access-Control-Allow-Origin': "*"
-            }
-        });
-        const { message:msg, status } = data;
-        if (status === 'error'){
+        const { data } = await axios.post(`${BASE_URL}${accountId}/web/tracker/v1/saveUploadedImages`, fileData);
+        const { message, success } = data;
+        if (success === 'false'){
             // message.error(msg);
-            dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT_FAILED });
+            dispatch({ type: claimReportActions.SAVE_FILE_KEYS_ATTEMPT_FAILED });
             return false;
         }
-        dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT_SUCCESS, payload: data, });
+        dispatch({ type: claimReportActions.SAVE_FILE_KEYS_ATTEMPT_SUCCESS, payload: data.data });
         return true;
     } catch ({ response }) {
         // message.error(response.message ? response.message : 'something went wrong!!! Please try again later');
-        dispatch({ type: claimReportActions.UPDATE_LOCATION_ATTEMPT_FAILED });
+        dispatch({ type: claimReportActions.SAVE_FILE_KEYS_ATTEMPT_FAILED });
         return false;
     }
 };
+
 
 export default reducer;

@@ -31,70 +31,48 @@ const style = {
 };
 const LocationPage = (props) =>{
 
+  // useEffect(() => {
+  //   getUrlData();
+  //   // generateLink();
+  // }, []);
     const currentLanguage = 'en';
 
     const [locationModalVisible, setLocationModalVisible] = useState(false);
     const [location, setLocation] = useState(false);
 
     const navigate = useNavigate();
-    const openLocationEnableModal = async () => {
-        setLocationModalVisible(true);
+ 
+    const enableLocation = async (lat, long) => {
 
-    };
+      const uniqueCode = localStorage.getItem('uniqueCode');
+      const tenantId = localStorage.getItem('tenantId');
 
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [error, setError] = useState(null);
-
-    const uploadLocation = async (id) =>{
-        // need to modify later
-        const locationData = {
-            lat: "6.927079",
-            long: "79.861244"
-        }
-        let result = await props.updateLocation(locationData);
-        if (result){
-            setLocation(true);
-            setLocationModalVisible(false);
-        }
-
+      const locationData = {
+        uniqueCode : uniqueCode,
+        lng : long,
+        lat,
+      }
+      const result = await props.updateLocation(locationData,tenantId);
+      if(result) navigate('/my-vehicle');
     }
-    const navigateNextScreen = () => {
-        navigate('/my-vehicle');
 
-    }
     const navigateBackScreen = () => {
         navigate('/');
-
     }
-    const closeModal = () => {
-        setLocationModalVisible(false);
-    }
-
-
-    const openLocationModal = () => {
-      setLocationModalVisible(true);
-    };
     
     const closeLocationModal = () => {
       setLocationModalVisible(false);
     };
 
-  
-
-
     const getLatitudeAndLongitude = async()=> {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
            (position)=> {
-            // const position = await new Promise((resolve, reject) => {navigator.geolocation.getCurrentPosition(resolve, reject);});
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             setLocationModalVisible(false);
             setLocation(true);
-            navigateNextScreen();
-            console.log(latitude);
-            console.log(longitude);
+            enableLocation(latitude,longitude);
           },
            (error)=> {
             console.error('Error getting location:', error.message);
@@ -168,7 +146,7 @@ const LocationPage = (props) =>{
                 variant="white"
                 style={{backgroundColor:'#03537E',borderRadius: '50px',fontWeight: 'bold', minWidth: '200px', minHeight:'30px'}}
                 sx={{ mt: 2, mb: 1 }}
-                onClick={()=>navigateNextScreen()}
+                onClick={()=>enableLocation()}
               >
                {translations.bu1}
               </Button>}                 
@@ -205,7 +183,7 @@ const LocationPage = (props) =>{
       <Button
         className="capture-button1 w-full"
         style={{backgroundColor:'#03537E',borderRadius: '50px',fontWeight: 'bold', minWidth: '200px', minHeight:'30px'}}
-        onClick={() => navigateNextScreen()}
+        onClick={() => enableLocation()}
       >
         <i className="capture-button-icon fas fa-search-location"></i>
         {props.isLoading && <span className="location-spinner"></span>}
@@ -256,9 +234,12 @@ const LocationPage = (props) =>{
 const mapDispatchToProps = state => {
     return {
         mediaUploadURL: state.claimReport.mediaUploadURL,
-        isLoading: state.claimReport.isLoading
+        isLoading: state.claimReport.isLoading,
+        locationData: state.claimReport.locationData
     };
 };
 export default connect(mapDispatchToProps, {
     updateLocation
 })(LocationPage);
+
+

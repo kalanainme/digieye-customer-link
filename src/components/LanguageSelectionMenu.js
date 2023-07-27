@@ -20,6 +20,8 @@ const defaultTheme = createTheme();
 const LanguageSelectionMenu = (props) => {
   const [showLanguageButtons, setShowLanguageButtons] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(true);
+  const [uniqueCode, setUniqueCode] = useState('');
+  const [tenantdId, setTenantId] = useState('');
 
   const changeLanguage = (event) => {
     const newLanguage = event.target.value;
@@ -33,17 +35,32 @@ const LanguageSelectionMenu = (props) => {
   };
 
   useEffect(() => {
-    generateLink();
+    getUrlData();
+    // generateLink();
   }, []);
 
   // -- future modifications needed--
-  const generateLink = async () => {
-    const body = {
-      app: 'digieye',
-      userId: 123123,
-    };
-    await props.getCustomerLink(body);
-  };
+  // const generateLink = async () => {
+  //   const body = {
+  //     app: 'digieye',
+  //     userId: 123123,
+  //   };
+  //   await props.getCustomerLink(body);
+  // };
+
+  // Check for accountId and uniqueCode
+  const getUrlData = async () => {
+
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+
+    if (params && params.uniqueCode && params.accountId) {
+      setUniqueCode(params.uniqueCode);
+      setTenantId(params.accountId);
+      localStorage.setItem('uniqueCode', params.uniqueCode);
+      localStorage.setItem('tenantId', params.accountId);
+    } 
+  }
 
   const handleAcceptTerms = (event) => {
     setAcceptTerms(event.target.checked);
