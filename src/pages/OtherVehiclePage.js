@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
 import UploadAndDisplayImage from "../components/UploadImage";
-import {connect} from "react-redux";
-import {getMediaUploadUrl, UploadImagesToS3,saveFileKeys} from "../store/claimReportReducer";
+import { connect } from "react-redux";
+import { getMediaUploadUrl, UploadImagesToS3, saveFileKeys } from "../store/claimReportReducer";
 import "./OtherVehiclePage.css"
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import translations from '../components/translations';
 
 import Upload from 'antd/es/upload/Upload';
 import Modal from 'antd/es/modal/Modal';
-import { CameraOutlined} from '@ant-design/icons';
+import { CameraOutlined } from '@ant-design/icons';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -18,7 +18,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import p from '../p.png'
 import cam from '../cam.png'
-import {ALLOWED_MEDIA_TYPES} from "../constants/constants"
+import { ALLOWED_MEDIA_TYPES } from "../constants/constants"
 
 
 
@@ -33,221 +33,180 @@ const getBase64 = (file) =>
   });
 
 
-const OtherVehicle = (props)=>{
+const OtherVehicle = (props) => {
 
-    const uniqueCode = localStorage.getItem('uniqueCode');
-    const tenantId = localStorage.getItem('tenantId');
+  const uniqueCode = localStorage.getItem('uniqueCode');
+  const tenantId = localStorage.getItem('tenantId');
 
-    const navigate = useNavigate();
-    const [file, setFile] = useState([]);
-    const [modalOpen, setModalOpen] = useState(false);
-    const [fileKeys, setFileKeys] = useState([]);
+  const navigate = useNavigate();
+  const [file, setFile] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [fileKeys, setFileKeys] = useState([]);
 
-    const navigateNextScreen = async () => {
+  const navigateNextScreen = async () => {
 
-      const fileData = {
-        uniqueCode: uniqueCode,
-        tenantId: tenantId,
-        files: fileKeys
-      };
-  
-      const result = await props.saveFileKeys(fileData, tenantId);
-      if (result) {
-        navigate('/driving-license')
-      }
+    const fileData = {
+      uniqueCode: uniqueCode,
+      tenantId: tenantId,
+      files: fileKeys
     };
 
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState([
-      // Initial file list data
-    ]);
-    
-    const handleCancel = () => setPreviewOpen(false);
-    
-    const handlePreview = async (file) => {
-      if (!file.url && !file.preview) {
-        file.preview = await getBase64(file.originFileObj);
-      }
-      setPreviewImage(file.url || file.preview);
-      setPreviewOpen(true);
-      setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
-    };
-    
-    const removeImage = (deletedFile ) => {
-      const availableimages = fileKeys.filter((item) => item.uid !== deletedFile.uid);
-      setFileKeys(availableimages);
-    };
-    
-    const handleUpload = async (file) => {
-
-      const urlData = {
-        uniqueCode: uniqueCode,
-        tenantId: tenantId,
-        mediaType: ALLOWED_MEDIA_TYPES.OtherVehiclePhoto,
-        fileName: file.name,
-        mimeType: file.type
-      };
-  
-        // Get the media upload URL
-        const urlResponse = await props.getMediaUploadUrl(urlData, tenantId);   
-        setFileKeys(fileKeys => [...fileKeys, { key: urlResponse.key, mimeType: file.type, uid: file.uid}]);
-        await props.UploadImagesToS3(file,urlResponse.url);
-    
+    const result = await props.saveFileKeys(fileData, tenantId);
+    if (result) {
+      navigate('/driving-license')
     }
-  
-    
-    const uploadButton = (
-      <div style={{color:"#03537E"}}>
-         <img src={cam}/>
-      </div>
-    );
+  };
 
-    const navigateBack = () => {
-        navigate('/my-vehicle');
-  
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState([
+    // Initial file list data
+  ]);
+
+  const handleCancel = () => setPreviewOpen(false);
+
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
     }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+  };
 
-    return (
-        <>
+  const removeImage = (deletedFile) => {
+    const availableimages = fileKeys.filter((item) => item.uid !== deletedFile.uid);
+    setFileKeys(availableimages);
+  };
 
-<ThemeProvider theme={defaultTheme}>
+  const handleUpload = async (file) => {
+
+    const urlData = {
+      uniqueCode: uniqueCode,
+      tenantId: tenantId,
+      mediaType: ALLOWED_MEDIA_TYPES.OtherVehiclePhoto,
+      fileName: file.name,
+      mimeType: file.type
+    };
+
+    // Get the media upload URL
+    const urlResponse = await props.getMediaUploadUrl(urlData, tenantId);
+    setFileKeys(fileKeys => [...fileKeys, { key: urlResponse.key, mimeType: file.type, uid: file.uid }]);
+    await props.UploadImagesToS3(file, urlResponse.url);
+
+  }
+
+
+  const uploadButton = (
+    <div style={{ color: "#03537E" }}>
+      <img src={cam} />
+    </div>
+  );
+
+  const navigateBack = () => {
+    navigate('/my-vehicle');
+
+  }
+
+  return (
+    <>
+
+      <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
-          <Header/>
+          <Header />
           <Box
             sx={{
               marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              color:"white",
-              fontFamily:"Inter",
+              color: "white",
+              fontFamily: "Inter",
             }}
           >
             <div>
-            <Typography component="h1" variant="poster" color="#03537E" fontFamily="Inter">
-             {translations.othervehicle1} <img src={p}/>
-            </Typography>
-            <Typography component="h1" color="#03537E" fontFamily="Inter" style={{fontWeight:'bold'}}>
-             {translations.othervehicle2}
-            </Typography>
-            <Typography component="h1" gutterBottom color="#757575" style={{fontFamily:"Inter",fontSize:14}}>
-             {translations.othervehicle3}
-            <p style={{color:"#757575",fontSize:12}}>{translations.othervehicle4}</p>
-            </Typography>
+              <Typography component="h1" variant="poster" color="#03537E" fontFamily="Inter">
+                {translations.othervehicle1} <img src={p} />
+              </Typography>
+              <Typography component="h1" color="#03537E" fontFamily="Inter" style={{ fontWeight: 'bold' }}>
+                {translations.othervehicle2}
+              </Typography>
+              <Typography component="h1" gutterBottom color="#757575" style={{ fontFamily: "Inter", fontSize: 14 }}>
+                {translations.othervehicle3}
+                <p style={{ color: "#757575", fontSize: 12 }}>{translations.othervehicle4}</p>
+              </Typography>
             </div>
-            {/* <Header/>
-            <div id="" className="othervehicle-container">
-                <p id="welcome-name" className="vehicle-name">Damaged to other Vehicle or Object</p>
-                <p className="vehicle-instruction">Please upload your damaged vehicle or object photos here</p>
-            </div>
-            <div className="app-modal-item-container">
-                { modalOpen && file.map((image,i)=>(
-                    <img
-                        style={{margin: '10px'}}
-                        key={i}
-                        alt="not found"
-                        width={"100px"}
-                        src={URL.createObjectURL(image)}
-                    />
-                ))
-                }
 
-            </div> */}
-<div style={{maxHeight:'200px', overflowY:'auto',marginRight:'50px',minWidth:'300px'}}>
-<Upload
-     action={handleUpload}
-      listType="picture-card"
-      // fileList={fileList}
-      onPreview={handlePreview}
-      onRemove={removeImage}
-      
-    >
-      {fileList.length >= 10 ? null : uploadButton}
-    </Upload>
-    </div>
-    
-    <div className="apps">
-            <Box display={{display:'flex'}} noValidate sx={{ mt: 10 }}>
-            <Button
-                type="primary"
-                fullWidth
-                variant="white"
-                style={{backgroundColor:'white',borderRadius: '50px' , color:'#03537E',fontWeight: 'bold', minWidth: '50px', minHeight:'30px' }}
-                sx={{ mt: 2, mb: 1 }}
-                onClick={navigateBack}
-            
+            <div style={{ maxHeight: '200px', overflowY: 'auto', marginRight: '50px', minWidth: '300px' }}>
+              <Upload
+                action={handleUpload}
+                listType="picture-card"
+                // fileList={fileList}
+                onPreview={handlePreview}
+                onRemove={removeImage}
+
               >
-                {translations.bu2}
-              </Button>
-              <Button
-                type="primary"
-                fullWidth
-                variant="white"
-                style={{backgroundColor:'#03537E',borderRadius: '50px',fontWeight: 'bold', minWidth: '200px', minHeight:'30px'}}
-                sx={{ mt: 2, mb: 1 }}
-                onClick={navigateNextScreen}
-              >
-               {translations.bu1}
-              </Button>       
-            </Box>
+                {fileList.length >= 10 ? null : uploadButton}
+              </Upload>
             </div>
 
+            <div className="apps">
+              <Box display={{ display: 'flex' }} noValidate sx={{ mt: 10 }}>
+                <Button
+                  type="primary"
+                  fullWidth
+                  variant="white"
+                  style={{ backgroundColor: 'white', borderRadius: '50px', color: '#03537E', fontWeight: 'bold', minWidth: '50px', minHeight: '30px' }}
+                  sx={{ mt: 2, mb: 1 }}
+                  onClick={navigateBack}
 
+                >
+                  {translations.bu2}
+                </Button>
+                <Button
+                  type="primary"
+                  fullWidth
+                  variant="white"
+                  style={{ backgroundColor: '#03537E', borderRadius: '50px', fontWeight: 'bold', minWidth: '200px', minHeight: '30px' }}
+                  sx={{ mt: 2, mb: 1 }}
+                  onClick={navigateNextScreen}
+                >
+                  {translations.bu1}
+                </Button>
+              </Box>
+            </div>
 
+            <Modal
+              visible={previewOpen}
+              title={previewTitle}
+              footer={null}
+              onCancel={handleCancel}
+            >
+              <img
+                alt="example"
+                style={{ width: '100%' }}
+                src={previewImage}
+              />
+            </Modal>
+          </Box>
+        </Container>
+      </ThemeProvider>
 
-            {/* <input multiple type="file" name="photo" id="photo" accept="image/*" capture="environment" className="img-uploadbtn"
-                   onChange={(event) => uploadMultiple(event)}
-
-            />
-
-            <div id="select-container" className="select-container1">
-                <label htmlFor="photo" id="capture-photo" className="option-container1">
-                    <span className="take-photo-txt">Take Photo</span>
-                    <i id="image-capture-icon" className="capture-button-icon fa fa-camera"></i>
-                </label>
-                <div id="option-container" className="option-container" onClick={()=>navigateNextScreen()}>
-                    <p className="mybutton-title ">NEXT</p>{props.isLoading && <span className="myspinner"></span>}
-                </div>
-            </div> */}
-
-<Modal
-      visible={previewOpen}
-      title={previewTitle}
-      footer={null}
-      onCancel={handleCancel}
-    >
-      <img
-        alt="example"
-        style={{ width: '100%' }}
-        src={previewImage}
-      />
-    </Modal>
-
-            {/*<div id="otherbuttons" className="otherbuttons">*/}
-            {/*    <div className="otherbutton" onClick={()=>navigateNextScreen()}>*/}
-            {/*        <p className="otherbutton-title">NEXT</p>{props.isLoading && <span className="otherspinner"></span>}*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-            </Box>
-            </Container>
-            </ThemeProvider>
-
-        </>
-    )
+    </>
+  )
 };
 
 const mapDispatchToProps = state => {
-    return {
-        mediaUploadURL: state.claimReport.mediaUploadURL,
-        isLoading: state.claimReport.isLoading,
-        uploadedImageURLs: state.claimReport.uploadedImageURLs,
-        uploadURLData: state.claimReport.uploadURLData
-    };
+  return {
+    mediaUploadURL: state.claimReport.mediaUploadURL,
+    isLoading: state.claimReport.isLoading,
+    uploadedImageURLs: state.claimReport.uploadedImageURLs,
+    uploadURLData: state.claimReport.uploadURLData
+  };
 };
 export default connect(mapDispatchToProps, {
-    getMediaUploadUrl,UploadImagesToS3,saveFileKeys
+  getMediaUploadUrl, UploadImagesToS3, saveFileKeys
 })(OtherVehicle);
 
 

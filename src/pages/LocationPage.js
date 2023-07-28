@@ -1,9 +1,9 @@
 import Header from "../components/Header";
 import "./LocationPage.css";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
-import {connect} from "react-redux";
-import {getMediaUploadUrl, updateLocation, UploadImagesToS3} from "../store/claimReportReducer";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { connect } from "react-redux";
+import { getMediaUploadUrl, updateLocation, UploadImagesToS3 } from "../store/claimReportReducer";
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -29,217 +29,163 @@ const style = {
   borderRadius: '20px',
   p: 4,
 };
-const LocationPage = (props) =>{
+const LocationPage = (props) => {
 
-  // useEffect(() => {
-  //   getUrlData();
-  //   // generateLink();
-  // }, []);
-    const currentLanguage = 'en';
+  const currentLanguage = 'en';
 
-    const [locationModalVisible, setLocationModalVisible] = useState(false);
-    const [location, setLocation] = useState(false);
+  const [locationModalVisible, setLocationModalVisible] = useState(false);
+  const [location, setLocation] = useState(false);
 
-    const navigate = useNavigate();
- 
-    const enableLocation = async (lat, long) => {
+  const navigate = useNavigate();
 
-      const uniqueCode = localStorage.getItem('uniqueCode');
-      const tenantId = localStorage.getItem('tenantId');
+  const enableLocation = async (lat, long) => {
 
-      const locationData = {
-        uniqueCode : uniqueCode,
-        lng : long,
-        lat,
-      }
-      const result = await props.updateLocation(locationData,tenantId);
-      if(result) navigate('/my-vehicle');
+    const uniqueCode = localStorage.getItem('uniqueCode');
+    const tenantId = localStorage.getItem('tenantId');
+
+    const locationData = {
+      uniqueCode: uniqueCode,
+      lng: long,
+      lat,
     }
+    const result = await props.updateLocation(locationData, tenantId);
+    if (result) navigate('/my-vehicle');
+  }
 
-    const navigateBackScreen = () => {
-        navigate('/');
+  const navigateBackScreen = () => {
+    navigate('/');
+  }
+
+  const closeLocationModal = () => {
+    setLocationModalVisible(false);
+  };
+
+  const getLatitudeAndLongitude = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          setLocationModalVisible(false);
+          setLocation(true);
+          enableLocation(latitude, longitude);
+        },
+        (error) => {
+          console.error('Error getting location:', error.message);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
     }
-    
-    const closeLocationModal = () => {
-      setLocationModalVisible(false);
-    };
+  }
 
-    const getLatitudeAndLongitude = async()=> {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-           (position)=> {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            setLocationModalVisible(false);
-            setLocation(true);
-            enableLocation(latitude,longitude);
-          },
-           (error)=> {
-            console.error('Error getting location:', error.message);
-          }
-        );
-      } else {
-        console.error('Geolocation is not supported by this browser.');
-      }
-    }
-
-    return(
-        <>
-        <ThemeProvider theme={defaultTheme}>
+  return (
+    <>
+      <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
-          <Header/>
+          <Header />
           <Box
             sx={{
               marginTop: 8,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              color:"white",
-              fontFamily:"Inter",
+              color: "white",
+              fontFamily: "Inter",
             }}
           >
             <div>
-           {!location && <Typography component="h1" variant="poster" color="#03537E">
-             {translations.greeting}<img src={l}/>
-            </Typography>
-           }
-            {!location && <Typography  gutterBottom color="#757575" style={{fontSize:14}}>
-              {translations.intro}
-             </Typography>
-            }
-            {!location && <Typography  gutterBottom color="#757575" style={{fontSize:12}}>
-             {translations.loctext2}
-             </Typography>
-            }
-         {location &&  <p id="location-enabled-heading" className="location-heading">Location Enabled!</p>}
-         {location &&  <img className="success-img" width={100} src="/success1.png" />}
+              {!location && <Typography component="h1" variant="poster" color="#03537E">
+                {translations.greeting}<img src={l} />
+              </Typography>
+              }
+              {!location && <Typography gutterBottom color="#757575" style={{ fontSize: 14 }}>
+                {translations.intro}
+              </Typography>
+              }
+              {!location && <Typography gutterBottom color="#757575" style={{ fontSize: 12 }}>
+                {translations.loctext2}
+              </Typography>
+              }
+              {location && <p id="location-enabled-heading" className="location-heading">Location Enabled!</p>}
+              {location && <img className="success-img" width={100} src="/success1.png" />}
 
-         </div>
-         <img src={map} className="" alt="logo" height={'230px'} width={'100%'}/>
-         <div className="apps">
-            <Box display={{display:'flex'}} noValidate sx={{ mt: 1 }}>
-              {!location &&<Button
-                type="primary"
-                fullWidth
-                variant="white"
-                style={{backgroundColor:'white',borderRadius: '50px' , color:'#03537E',fontWeight: 'bold', minWidth: '50px', minHeight:'30px' }}
-                sx={{ mt: 2, mb: 1 }}
-                onClick={()=>navigateBackScreen()}
-              >
-                {translations.bu2}
-              </Button>}
-              {!location &&<Button
-                type="primary"
-                fullWidth
-                variant="white"
-                style={{backgroundColor:'#03537E',borderRadius: '50px',fontWeight: 'bold', minWidth: '200px', minHeight:'30px'}}
-                sx={{ mt: 2, mb: 1 }}
-                onClick={()=>getLatitudeAndLongitude()}
-              >
-               {translations.bu3}
-              </Button>}
-
-              {location &&<Button
-                type="primary"
-                fullWidth
-                variant="white"
-                style={{backgroundColor:'#03537E',borderRadius: '50px',fontWeight: 'bold', minWidth: '200px', minHeight:'30px'}}
-                sx={{ mt: 2, mb: 1 }}
-                onClick={()=>enableLocation()}
-              >
-               {translations.bu1}
-              </Button>}                 
-            </Box>
             </div>
-{/* 
-    <div id="location-welcome-container" className="location-welcome-container">
-                {!location &&  <p id="location-heading" className="location-heading">Enable Your Location</p>}
-                {!location && <p className="location-subtitle ">Please Enable Your Location</p>}
-                {location &&  <p id="location-enabled-heading" className="location-heading">Location Enabled!</p>}
-                {location &&  <img className="success-img" width={100} src="/success1.png" />}
+            <img src={map} className="" alt="logo" height={'230px'} width={'100%'} />
+            <div className="apps">
+              <Box display={{ display: 'flex' }} noValidate sx={{ mt: 1 }}>
+                {!location && <Button
+                  type="primary"
+                  fullWidth
+                  variant="white"
+                  style={{ backgroundColor: 'white', borderRadius: '50px', color: '#03537E', fontWeight: 'bold', minWidth: '50px', minHeight: '30px' }}
+                  sx={{ mt: 2, mb: 1 }}
+                  onClick={() => navigateBackScreen()}
+                >
+                  {translations.bu2}
+                </Button>}
+                {!location && <Button
+                  type="primary"
+                  fullWidth
+                  variant="white"
+                  style={{ backgroundColor: '#03537E', borderRadius: '50px', fontWeight: 'bold', minWidth: '200px', minHeight: '30px' }}
+                  sx={{ mt: 2, mb: 1 }}
+                  onClick={() => getLatitudeAndLongitude()}
+                >
+                  {translations.bu3}
+                </Button>}
 
-    </div> */}
-
-
-           
-             {/* <div className="apps">
-                {!location && <div className="nxt-btn" onClick={()=>openLocationEnableModal()}>
-                    <p className="app-title">LOCATION</p>
-                </div>}
-                { location && <div className="nxt-btn" onClick={()=>navigateNextScreen()}>
-                    <p className="app-title">NEXT</p>
-                </div>}
-            </div> 
-    */}
-
-<>
-{locationModalVisible &&
-   <Box sx={style}>
-      <img src={cross} style={{float:'right'}} onClick={()=>closeLocationModal()}/>
-    <Typography  gutterBottom color="#03537E" style={{fontweight:'bold',fontFamily:'Inter'}}>
-        <p style={{fontWeight:'bold'}}>Please pin your location of the incident</p>
-    </Typography>
-      <Button
-        className="capture-button1 w-full"
-        style={{backgroundColor:'#03537E',borderRadius: '50px',fontWeight: 'bold', minWidth: '200px', minHeight:'30px'}}
-        onClick={() => enableLocation()}
-      >
-        <i className="capture-button-icon fas fa-search-location"></i>
-        {props.isLoading && <span className="location-spinner"></span>}
-        <span className="capture-button-text">Next</span>
-      </Button>
-      <div id="map" className="relative h-96 w-full mt-4 rounded shadow-md"></div>
-      </Box>
-}
-  </>
-
-
-
-
-
-            {/* {locationModalVisible &&
-            <div id="location-capture">
-                <div id="location-capture-modal" className="app-modal">
-                    <button id="location-capture-close" className="close" onClick={()=>closeModal()}>
-                        <i className="fas fa-times text-lg">X</i>
-                    </button>
-                    <div id="location-capture-header" className="app-modal-header">
-                        <div id="location-capture-details" className="app-modal-details-container">
-                            <p id="location-capture-title" className="app-modal-title">Allow Access Location?</p>
-                            <p id="location-capture-subtitle" className="app-modal-subtitle">Please pin your location of the
-                                incident</p>
-                        </div>
-                    </div>
-                    <button id="location-capture-button" className="capture-button1 w-full">
-                        <i className="capture-button-icon fas fa-search-location"></i>
-                        {props.isLoading && <span className="location-spinner"></span>}
-                        <span className="capture-button-text" onClick={()=>uploadLocation()}>Enable location</span>
-                    </button>
-                    <div id="map" className="relative h-96 w-full mt-4 rounded shadow-md"></div>
-                </div>
-                <div className="app-modal-background app-dimension"></div>
+                {location && <Button
+                  type="primary"
+                  fullWidth
+                  variant="white"
+                  style={{ backgroundColor: '#03537E', borderRadius: '50px', fontWeight: 'bold', minWidth: '200px', minHeight: '30px' }}
+                  sx={{ mt: 2, mb: 1 }}
+                  onClick={() => enableLocation()}
+                >
+                  {translations.bu1}
+                </Button>}
+              </Box>
             </div>
-            } */}
 
-
-            </Box>
-            </Container>
-            </ThemeProvider>
-      </>
-    )
+            <>
+              {locationModalVisible &&
+                <Box sx={style}>
+                  <img src={cross} style={{ float: 'right' }} onClick={() => closeLocationModal()} />
+                  <Typography gutterBottom color="#03537E" style={{ fontweight: 'bold', fontFamily: 'Inter' }}>
+                    <p style={{ fontWeight: 'bold' }}>Please pin your location of the incident</p>
+                  </Typography>
+                  <Button
+                    className="capture-button1 w-full"
+                    style={{ backgroundColor: '#03537E', borderRadius: '50px', fontWeight: 'bold', minWidth: '200px', minHeight: '30px' }}
+                    onClick={() => enableLocation()}
+                  >
+                    <i className="capture-button-icon fas fa-search-location"></i>
+                    {props.isLoading && <span className="location-spinner"></span>}
+                    <span className="capture-button-text">Next</span>
+                  </Button>
+                  <div id="map" className="relative h-96 w-full mt-4 rounded shadow-md"></div>
+                </Box>
+              }
+            </>
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </>
+  )
 
 }
 
 const mapDispatchToProps = state => {
-    return {
-        mediaUploadURL: state.claimReport.mediaUploadURL,
-        isLoading: state.claimReport.isLoading,
-        locationData: state.claimReport.locationData
-    };
+  return {
+    mediaUploadURL: state.claimReport.mediaUploadURL,
+    isLoading: state.claimReport.isLoading,
+    locationData: state.claimReport.locationData
+  };
 };
 export default connect(mapDispatchToProps, {
-    updateLocation
+  updateLocation
 })(LocationPage);
 
 

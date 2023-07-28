@@ -150,24 +150,6 @@ const DrivingLicense = (props) => {
                 <p style={{ color: "#757575", fontSize: 12 }}>{translations.dlp4}</p>
               </Typography>
             </div>
-            {/* <Header/>
-            <div id="vehicle-container" className="drivinglicense-container">
-                <p id="vehicle-name" className="vehicle-name">Driving License Photos</p>
-                <p className="vehicle-instruction">Please upload your driving license photos here.</p>
-            </div>
-            <div className="app-modal-item-container">
-                { modalOpen && file.map((image,i)=>(
-                    <img
-                        style={{margin: '10px'}}
-                        key={i}
-                        alt="not found"
-                        width={"100px"}
-                        src={URL.createObjectURL(image)}
-                    />
-                ))
-                }
-
-            </div> */}
 
             <div style={{ maxHeight: '200px', overflowY: 'auto', marginRight: '50px', minWidth: '300px' }}>
               <Upload
@@ -206,18 +188,6 @@ const DrivingLicense = (props) => {
               </Box>
             </div>
 
-            {/* <input multiple type="file" name="photo" id="photo" accept="image/*" capture="environment" className="img-uploadbtn" onChange={(e)=>
-                uploadMultiple(e) }/>
-
-            <div id="select-container" className="select-container2">
-                <label htmlFor="photo" id="capture-photo" className="option-container1">
-                    <span className="take-photo-txt">Take Photo</span>
-                    <i id="image-capture-icon" className="capture-button-icon fa fa-camera"></i>
-                </label>
-                <div id="option-container" className="option-container" onClick={()=>navigateNextScreen()}>
-                    <p className="mybutton-title ">NEXT</p>{props.isLoading && <span className="drivingspinner"></span>}
-                </div>
-            </div> */}
             <Modal
               visible={previewOpen}
               title={previewTitle}
